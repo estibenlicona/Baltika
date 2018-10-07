@@ -1,0 +1,74 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('icomoon.eot?oy368l');
+  src:  url('icomoon.eot?oy368l#iefix') format('embedded-opentype'),
+    url('icomoon.ttf?oy368l') format('truetype'),
+    url('icomoon.woff?oy368l') format('woff'),
+    url('icomoon.svg?oy368l#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1.5;
+  font-size: 25px;
+  color: #eee;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-administrador:before {
+  content: "\e900";
+}
+.icon-balon:before {
+  content: "\e901";
+}
+.icon-calendario:before {
+  content: "\e902";
+}
+.icon-cancha:before {
+  content: "\e903";
+}
+.icon-config:before {
+  content: "\e904";
+}
+.icon-cup:before {
+  content: "\e905";
+}
+.icon-euro:before {
+  content: "\e906";
+}
+.icon-hall-of-fame:before {
+  content: "\e907";
+}
+.icon-home:before {
+  content: "\e908";
+}
+.icon-league:before {
+  content: "\e909";
+}
+.icon-negocios:before {
+  content: "\e90a";
+  color: #fff;
+}
+.icon-negocios2:before {
+  content: "\e90b";
+}
+.icon-plantilla:before {
+  content: "\e90c";
+}
+.icon-presupuesto:before {
+  content: "\e90d";
+}
+.icon-team:before {
+  content: "\e90e";
+}
