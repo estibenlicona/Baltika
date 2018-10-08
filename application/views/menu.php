@@ -1,4 +1,4 @@
-<nav class="nav-side-menu">
+<nav class="nav-side-menu hideMenu">
   <div class="brand"> Administrador</div>
   <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
     <div class="menu-list">
@@ -9,7 +9,7 @@
           </a>
         </li>
         <!-- Item -->
-        <li><a id="prueba" href="#"><i class="icon-league"></i> Liga </a></li>
+        <li id="liga"><a><i class="icon-league"></i> Liga </a></li>
         <li><a href="#">
           <i class="icon-cup"></i> Copa </a>
         </li>
@@ -37,6 +37,10 @@
      }
    });
    */
+$("#liga").click(function () {
+  $(location).attr('href', '<?=$url_base?>liga');
+})
+
  $(window).mousemove(function(event){
    if ($(window).width() >= 800) {
      var x = event.pageX;
