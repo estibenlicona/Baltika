@@ -6,6 +6,7 @@ class Home extends CI_Controller {
 		$datosHeader['url_base'] = base_url();
 		$datosHeader['title'] = 'Home';
 		$datos['header'] = $this->load->view('header',$datosHeader,true);
+		$datos['menu'] = $this->load->view('menu',$datosHeader,true);
 		$this->load->view('home',$datos);
 	}
 }
