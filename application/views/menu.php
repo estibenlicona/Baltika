@@ -2,29 +2,43 @@
   <div class="brand"> Administrador</div>
   <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
     <div class="menu-list">
-      <ul id="menu-content" class="menu-content collapse out">
-        <li class="active">
-          <a href="<?=$url_base?>">
-          <i class="icon-home"></i> Home
+      <ul  id="menu-content" class="menu-content collapse out">
+        <li data-toggle="collapse" data-target="#service" class="active class="collapsed"">
+          <a href="#">
+          <i class="finca"></i> Fincas <span class="arrow"></span>
           </a>
         </li>
-        <!-- Item -->
-        <li id="liga"><a><i class="icon-league"></i> Liga </a></li>
-        <li><a href="#">
-          <i class="icon-cup"></i> Copa </a>
+        <ul class="sub-menu collapse" id="service">
+          <li><a href="#"> Crear Finca</a></li>
+          <li><a href="#"> Consultar </a></li>
+        </ul>
+        <li data-toggle="collapse" data-target="#programacion" class="active class="collapsed"">
+          <a href="#">
+          <i class="lote"></i> Programación <span class="arrow"></span>
+          </a>
         </li>
-        <li><a href="#">
-          <i class="icon-team"></i> Equipos </a>
+        <ul class="sub-menu collapse" id="programacion">
+          <li><a href="#"> Programar Entrega</a></li>
+          <li><a href="#"> Consultar </a></li>
+        </ul>
+        <li data-toggle="collapse" data-target="#estimativo" class="active class="collapsed"">
+          <a href="#">
+          <i class="trabajadores"></i> Trabajadores <span class="arrow"></span>
+          </a>
         </li>
-        <li><a href="#">
-          <i class="icon-team"></i> Eventos </a>
+        <ul class="sub-menu collapse" id="estimativo">
+          <li><a href="#"> Registrar </a></li>
+          <li><a href="#"> Consultar </a></li>
+        </ul>
+        <li data-toggle="collapse" data-target="#estimativo" class="active class="collapsed"">
+          <a href="#">
+          <i class="icon-home"></i> Estimativos <span class="arrow"></span>
+          </a>
         </li>
-        <li><a href="#">
-          <i class="icon-administrador"></i> Usuarios </a>
-        </li>
-        <li><a href="#">
-          <i class="icon-config" ></i> Cuenta </a>
-        </li>
+        <ul class="sub-menu collapse" id="estimativo">
+          <li><a href="#"> Registrar </a></li>
+          <li><a href="#"> Consultar </a></li>
+        </ul>
       <ul>
    </div>
 </nav>
@@ -37,10 +51,10 @@
      }
    });
    */
-$("#liga").click(function () {
+/*$("#liga").click(function () {
   $(location).attr('href', '<?=$url_base?>liga');
 })
-
+*/
  $(window).mousemove(function(event){
    if ($(window).width() >= 800) {
      var x = event.pageX;
