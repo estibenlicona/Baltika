@@ -1,3 +1,17 @@
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+.material-icons.dark600 { color: #343a40; }
+.material-icons.light600 { color: #fff; }
+
 body {
   margin: 0px;
   padding: 0px;
@@ -162,6 +176,12 @@ transition: all 1s ease;
   background: #343a40 !important;
   color: #eee;
 }
-.boton-nuevo-torneo{
-  
+
+.dark{
+  background: #343a40 !important;
+  color: #eee;
+}
+.navbar-brand span{
+  font-size: 30px;
+  color: #343a40;
 }

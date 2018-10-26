@@ -12,6 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<script src="<?=$url_base?>lib\bootstrap\js\bootstrap.min.js" type="text/javascript"></script>
 		<link rel="stylesheet" type="text/css" href="<?=$url_base?>lib\fonts\style.css">
 		<link rel="stylesheet" type="text/css" href="<?=$url_base?>lib\css\main.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 		<title><?=$title?></title>
 	</head>
