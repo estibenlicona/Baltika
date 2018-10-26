@@ -1,44 +1,47 @@
 <nav class="nav-side-menu hideMenu">
-  <div class="brand"> Administrador</div>
+  <div class="brand"> Usuario </div>
   <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
     <div class="menu-list">
       <ul  id="menu-content" class="menu-content collapse out">
         <li data-toggle="collapse" data-target="#service" class="active class="collapsed"">
           <a href="#">
-          <i class="finca"></i> Fincas <span class="arrow"></span>
+          <i class="finca"></i> Admin <span class="arrow"></span>
           </a>
         </li>
         <ul class="sub-menu collapse" id="service">
-          <li><a href="#"> Crear Finca</a></li>
-          <li><a href="#"> Consultar </a></li>
+          <li><a href="<?=$url_base?>admin/torneo"> Torneos </a></li>
+          <li><a href="#"> Temporadas </a></li>
+          <li><a href="#"> Ligas </a></li>
+          <li><a href="#"> Equipos </a></li>
+          <li><a href="#"> Jugadores </a></li>
+          <li><a href="#"> Eventos </a></li>
+          <li><a href="#"> Premios </a></li>
         </ul>
-        <li data-toggle="collapse" data-target="#programacion" class="active class="collapsed"">
+        <li data-toggle="collapse" data-target="#liga" class="class="collapsed"">
           <a href="#">
-          <i class="lote"></i> Programación <span class="arrow"></span>
+          <i class="lote"></i> Liga <span class="arrow"></span>
           </a>
         </li>
-        <ul class="sub-menu collapse" id="programacion">
-          <li><a href="#"> Programar Entrega</a></li>
-          <li><a href="#"> Consultar </a></li>
+        <ul class="sub-menu collapse" id="liga">
+          <li><a href="#"> Fixture </a></li>
+          <li><a href="#"> Goleadores </a></li>
+          <li><a href="#"> Juegos </a></li>
         </ul>
-        <li data-toggle="collapse" data-target="#estimativo" class="active class="collapsed"">
+        <li data-toggle="collapse" data-target="#copa" class="class="collapsed"">
           <a href="#">
-          <i class="trabajadores"></i> Trabajadores <span class="arrow"></span>
+          <i class="lote"></i> Copa <span class="arrow"></span>
           </a>
         </li>
-        <ul class="sub-menu collapse" id="estimativo">
-          <li><a href="#"> Registrar </a></li>
-          <li><a href="#"> Consultar </a></li>
+        <ul class="sub-menu collapse" id="copa">
+          <li><a href="#"> Fixture </a></li>
+          <li><a href="#"> Goleadores </a></li>
+          <li><a href="#"> Juegos </a></li>
         </ul>
-        <li data-toggle="collapse" data-target="#estimativo" class="active class="collapsed"">
+        <li data-toggle="collapse" data-target="#alloffame" class="class="collapsed"">
           <a href="#">
-          <i class="icon-home"></i> Estimativos <span class="arrow"></span>
+          <i class="trabajadores"></i> All of Fame
           </a>
         </li>
-        <ul class="sub-menu collapse" id="estimativo">
-          <li><a href="#"> Registrar </a></li>
-          <li><a href="#"> Consultar </a></li>
-        </ul>
       <ul>
    </div>
 </nav>
@@ -59,7 +62,7 @@
    if ($(window).width() >= 800) {
      var x = event.pageX;
      var y = event.pageY;
-     if (x <= 0) {
+     if (x <= 5) {
        $('.nav-side-menu').removeClass('hideMenu');
        $('.nav-side-menu').addClass('showMenu');
      }

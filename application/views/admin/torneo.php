@@ -1,39 +1,34 @@
-<!DOCTYPE html>
-<html lang="es" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
-		<title>Home</title>
-		<link href="<?=$url_base?>lib\bootstrap\css\bootstrap.min.css" rel="stylesheet">
-		<script src="<?=$url_base?>lib\jquery\jquery.min.js" type="text/javascript"></script>
-		<script src="<?=$url_base?>lib\bootstrap\js\bootstrap.min.js" type="text/javascript"></script>
-		<link rel="stylesheet" type="text/css" href="<?=$url_base?>lib\css\main.css">
-		<link rel="stylesheet" type="text/css" href="<?=$url_base?>lib\fonts\style.css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-  </head>
-  <body>
+<?= $header?>
+<?= $menu ?>
+<body>
   <div class="container">
-    <h3 class="display3">Crear Torneo</h3>
-    <div class="row no-gutters">
+    <br>
+    <div class="row boton-nuevo-torneo">
       <div class="col-sm">
-        <div class="form-group">
-          <label class="font-weight-bold text-muted">Nombre del torneo</label>
-          <input type="text" class="form-control">
-        </div>
+        <a href="<?=$url_base?>torneo/nuevo" class="btn btn-dark"> Nuevo</a>
       </div>
-      <div class="col-sm">
-        <div class="form-group">
-          <label class="font-weight-bold text-muted">Nombre del torneo</label>
-          <input type="text" class="form-control">
-        </div>
-      </div>
-      <div class="col-sm">
-        <div class="form-group">
-          <label class="font-weight-bold text-muted">Nombre del torneo</label>
-          <input type="text" class="form-control">
-        </div>
-      </div>
+    </div>
+    <br>
+    <div class="row">
+      <table class="table list-torneos">
+        <tbody>
+          <tr class="list-head">
+            <td>Torneo</td>
+            <td></td>
+            <td class="">Fecha Registro</td>
+          </tr>
+          <tr>
+            <td class="logo-torneo">Jacob</td>
+            <td>Jacob</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <td class="logo-torneo">Jacob</td>
+            <td>Jacob</td>
+            <td>@fat</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div class="row">
       <div class="col-sm">

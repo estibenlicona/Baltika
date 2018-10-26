@@ -3,6 +3,8 @@ body {
   padding: 0px;
 }
 .nav-side-menu {
+  position: absolute !important;
+  z-index: 10 !important;
   overflow: auto;
   font-family: verdana;
   font-size: 12px;
@@ -152,4 +154,14 @@ transform: translateX(0px) !important;
 -o-transition: all 1s ease;
 -ms-transition: all 1s ease;
 transition: all 1s ease;
+}
+.list-torneos td{
+  border: 0px;
+}
+.list-head{
+  background: #343a40 !important;
+  color: #eee;
+}
+.boton-nuevo-torneo{
+  
 }
