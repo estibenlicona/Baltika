@@ -5,7 +5,7 @@
     <br>
     <div class="row boton-nuevo-torneo">
       <div class="col-sm">
-        <a href="<?=$url_base?>league/add" class="btn btn-dark"> Nuevo</a>
+        <a href="<?=$url_base?>admin/add_league" class="btn btn-dark"> Nuevo</a>
       </div>
     </div>
     <br>

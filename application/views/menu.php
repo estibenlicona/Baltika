@@ -9,7 +9,7 @@
           </a>
         </li>
         <ul class="sub-menu collapse" id="service">
-          <li><a href="<?=$url_base?>admin/league"> Torneos </a></li>
+          <li><a href="<?=$url_base?>admin/list_league"> Torneos </a></li>
           <li><a href="#"> Temporadas </a></li>
           <li><a href="#"> Ligas </a></li>
           <li><a href="#"> Equipos </a></li>
