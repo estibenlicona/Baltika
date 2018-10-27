@@ -30,10 +30,7 @@
           </div>
           <div class="form-group">
             <label for="exampleFormControlInput1">Logo</label>
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" id="customFileLang" lang="es">
-              <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
-            </div>
+            <input id="file-input" name="file-input" type="file" class="file light600" data-show-preview="false">
           </div>
           <div class="form-group">
             <label for="exampleFormControlTextarea1">Usuario</label>
@@ -48,10 +45,11 @@
     </div>
   </div>
 </body>
+<?=$footer?>
 </html>
 <script type="text/javascript">
-  $custom-file-text: (
-  en: "Browse",
-  es: "Elegir"
-  );
+$('#file-input').fileinput({
+    showUpload:false,
+    showRemove:false
+});
 </script>

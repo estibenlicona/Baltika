@@ -7,6 +7,7 @@ class Torneo extends CI_Controller {
 		$datosHeader['title'] = 'Home';
 		$datos['header'] = $this->load->view('header',$datosHeader,true);
 		$datos['menu'] = $this->load->view('menu',$datosHeader,true);
+		$datos['footer'] = $this->load->view('footer',$datosHeader,true);
 		$this->load->view('torneo/nuevo',$datos);
 	}
 }
