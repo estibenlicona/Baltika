@@ -76,6 +76,12 @@
     if ($(window).width() <= 800 ){
       $('.nav-side-menu').removeClass('hideMenu');
       $('.nav-side-menu').addClass('showMenu');
+      $('#title').hide();
     }
  });
+ if ($(window).width() <= 800 ){
+   $('.nav-side-menu').removeClass('hideMenu');
+   $('.nav-side-menu').addClass('showMenu');
+   $('#title').hide();
+ }
  </script>

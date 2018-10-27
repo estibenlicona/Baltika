@@ -19,8 +19,7 @@ body {
   padding: 0px;
 }
 .nav-side-menu {
-  position: absolute !important;
-  z-index: 10 !important;
+  z-index: 10;
   overflow: auto;
   font-family: verdana;
   font-size: 12px;
@@ -28,6 +27,7 @@ body {
   background-color: #2e353d;
   position: fixed;
   top: 0px;
+  bottom: 0px;
   width: 200px;
   height: 100%;
   color: #e1ffff;
@@ -119,18 +119,18 @@ body {
 }
 @media (max-width: 800px) {
   .nav-side-menu {
-    position: absolute;
+    position: static;
+    top: 0px;
     width: 100%;
-    height: auto;
+    height: auto !important;
   }
   body{
-    margin-top: 50px;
-    background: #000;
+    background: #fff;
   }
   .nav-side-menu .toggle-btn {
     display: block;
     cursor: pointer;
-    position: absolute;
+    position: absolute !important;
     right: 10px;
     top: 10px;
     z-index: 10 !important;
@@ -186,4 +186,8 @@ transition: all 1s ease;
 .navbar-brand span{
   font-size: 30px;
   color: #343a40;
+}
+
+.opciones-nav{
+  margin-left: -15px;
 }

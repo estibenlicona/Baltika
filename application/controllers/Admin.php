@@ -7,6 +7,6 @@ class Admin extends CI_Controller {
 		$datosHeader['title'] = 'Home';
 		$datos['header'] = $this->load->view('header',$datosHeader,true);
 		$datos['menu'] = $this->load->view('menu',$datosHeader,true);
-		$this->load->view('admin/torneo',$datos);
+		$this->load->view('admin/league',$datos);
 	}
 }
