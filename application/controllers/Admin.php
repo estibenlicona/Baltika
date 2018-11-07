@@ -28,12 +28,18 @@ class Admin extends CI_Controller {
 			'encrypt_name' => true
 		);
 		$this->upload->initialize($config);
-		if ($this->upload->do_upload('editLogo')) {
-			$data = $this->upload->data();
-			return $data['file_name'];
+		$this->upload->do_upload('editLogo');
+
+		if ($this->upload->data('file_size') != 0) {
+			if ($this->upload->data('file_ext') != '.png') {
+				return 'ext_invalid';
+				exit;
+			}
 		}else {
-			return $this->upload->display_errors('', '');
+			return 'not_select';
+			exit;
 		}
+		return $this->upload->data('file_name');
 	}
 
 	public function edit_league(){
@@ -53,100 +59,37 @@ class Admin extends CI_Controller {
 		);
 		$this->form_validation->set_error_delimiters('','');
 		$this->form_validation->set_rules($config);
-		$this->form_validation->run();
-		$errors = array(
-			'nombre' => form_error('editNombre'),
-			'social' => form_error('editSocial'),
-			'typeImagen' => ''
-		 );
-		if ($_FILES['editLogo']['size']>0) {
-			$imagen = $this->uploadImagen();
-			$errors['typeImagen'] = $imagen;
-			echo json_encode($errors);
-			$this->output->set_status_header(400);
-		}else {
-			echo json_encode($errors);
-			$this->output->set_status_header(400);
-		}
 
-/*
-		$config = array(
-				array(
-					'field' => 'editNombre',
-					'label' => 'nombre',
-					'rules' => 'required',
-					'errors' => array('required' => 'El %s es requerido')
-				),
-				array(
-					'field' => 'editSocial',
-					'label' => 'red social',
-					'rules' => 'required',
-					'errors' => array('required' => 'La %s es requerida')
-				)
-		);
-		$this->form_validation->set_error_delimiters('','');
-		$this->form_validation->set_rules($config);
-		if($this->form_validation->run() === false){
-			$errors = array(
-				'nombre' => form_error('editNombre'),
-				'social' => form_error('editSocial'),
-				'errorUpdate' => '',
-				'typeImagen' => ''
-			 );
-			 echo json_encode($errors);
-			 $this->output->set_status_header(400);
-			 exit;
-    }
-
-		$id = $this->input->post("editId");
-		$nombre = $this->input->post("editNombre");
-		$social = $this->input->post("editSocial");
-
-		if ($_FILES['editLogo']['size']>0) {
-			$configUpload = array(
-				'upload_path' => './lib/logos',
-				'allowed_types' => 'png',
-				'encrypt_name' => true
-			);
-			$this->upload->initialize($configUpload);
-			if ($this->upload->do_upload('editLogo')) {
-				$datosImagen = $this->upload->data();
-				$logo = $datosImagen['file_name'];
-				$dataLeague = array(
-					'id' => $id,
-					'nombre' => $nombre,
-					'social_network' => $social,
-					'logo' => $logo
+		 if ($this->form_validation->run() == false || $this->uploadImagen() == 'ext_invalid') {
+			 $errors = array(
+				 'nombre' => form_error('editNombre'),
+				 'social' => form_error('editSocial'),
+				 'typeImagen' => $this->uploadImagen()
 				);
-			}else {
-				$errorImagen = true;
-			}
-		}else{
-			$dataLeague = array(
-				'id' => $id,
-				'nombre' => $nombre,
-				'social_network' => $social
-			);
-		}
-		if (isset($errorImagen)) {
-			$errors = array(
-				'nombre' => form_error('editNombre'),
-				'social' => form_error('editSocial'),
-				'errorUpdate' => '',
-				'typeImagen' => 'Seleccione una imagen con formato PNG'
-			 );
 			echo json_encode($errors);
 			$this->output->set_status_header(400);
-		}else {
-			if ($this->League_model->editLeague($dataLeague)) {
-			echo json_encode(array('url' => base_url('Admin/list_league')));
-			}else {
-				//$errors['errorUpdate'] = 'No se pudo actualizar';
-				echo json_encode($errors);
-				$this->output->set_status_header(400);
-			}
-		}
-		*/
+			exit;
+		 }
+
+		 if ($this->uploadImagen() == 'not_select') {
+				$dataLeague = array(
+					'id' => $this->input->post("editId"),
+					'nombre' => $this->input->post("editNombre"),
+					'social_network' => $this->input->post("editSocial")
+				);
+				$this->League_model->editLeague($dataLeague);
+				echo json_encode(array('url' => base_url('Admin/list_league')));
+				exit;
+		 }
+
+		 $dataLeague = array(
+			 'id' => $this->input->post("editId"),
+			 'nombre' => $this->input->post("editNombre"),
+			 'social_network' => $this->input->post("editSocial"),
+			 'logo' => $this->uploadImagen()
+		 );
+		 $this->League_model->editLeague($dataLeague);
+		 echo json_encode(array('url' => base_url('Admin/list_league')));
 	}
 	public function state_league()
 	{

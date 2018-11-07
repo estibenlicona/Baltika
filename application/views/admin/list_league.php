@@ -182,6 +182,8 @@
     $("#formEditLeague").submit(function(ev) {
       $('#editNombre > input').removeClass('is-invalid');
       $('#editSocial > input').removeClass('is-invalid');
+      $('#editLogo > .custom-file > #logo-invalid-feedback').html('');
+      $('#editLogo > .custom-file > .custom-file-label').css('border-color', '#DCDCDC');
       ev.preventDefault();
       var datos = new FormData(this);
       //datos.id = $("#editId > input").val();
@@ -193,13 +195,13 @@
         cache:false,
         processData:false,
         success: function (resp) {
-          //var json = JSON.parse(resp);
-          //window.location.replace(json.url);
-          console.log(resp);
+          var json = JSON.parse(resp);
+          window.location.replace(json.url);
         },
         statusCode:{
           400: function(xhr) {
             var json = JSON.parse(xhr.responseText);
+
             if (json.nombre.length != 0) {
               $('#editNombre > div').html(json.nombre);
               $('#editNombre > input').addClass('is-invalid');
@@ -208,10 +210,9 @@
               $('#editSocial > div').html(json.social);
               $('#editSocial > input').addClass('is-invalid');
             }
-            if (json.typeImagen != 0) {
+            if (json.typeImagen == 'ext_invalid') {
               $('#editLogo > .custom-file > #logo-invalid-feedback').html('Solo se permiten imagenes en PNG');
-              //$('#editSocial > input').addClass('is-invalid');
-
+              $('#editLogo > .custom-file > .custom-file-label').css('border-color', '#dc3545');
             }
           }
         }
