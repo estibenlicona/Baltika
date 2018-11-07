@@ -13,6 +13,7 @@
 
 .material-icons.dark600 { color: #343a40; }
 .material-icons.light600 { color: #fff; }
+.material-icons.on600 { color: #c6dcff !important; }
 
 body {
   margin: 0px;
@@ -187,7 +188,36 @@ transition: all 1s ease;
   font-size: 30px;
   color: #343a40;
 }
-
-.opciones-nav{
-  margin-left: -15px;
+.table-body-list{
+  cursor: pointer;
+}
+.table-body-list-select{
+  background:#eee
+}
+.table-body-list:hover{
+  background:#eee;
+}
+.space-column{
+  width: 5%;
+}
+.id-column{
+  width: 5%;
+}
+.social-column{
+  width: 5%;
+}
+.state-column{
+  width: 5%;
+}
+.league-column{
+  width: 75%;
+}
+#logo-invalid-feedback{
+  width: 100%;
+  margin-top: .25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+.custom-file-input ~ .custom-file-label::after {
+    content: "Examinar";
 }
