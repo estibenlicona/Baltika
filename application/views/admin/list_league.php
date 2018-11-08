@@ -150,6 +150,15 @@
 </html>
 <script type="text/javascript">
   (function ($) {
+    //Editar de Liga
+    $("#formEditLeague").submit(function(ev) {
+      envioDatosAjax(this,ev,'<?= base_url("Admin/edit_league")?>','#editNombre','#editSocial','#editLogo');
+    });
+
+    //Registro de Liga
+    $("#formAddLeague").submit(function(ev) {
+      envioDatosAjax(this,ev,'<?= base_url("Admin/save_league")?>','#nombre','#social','#logo');
+    });
     //Se validan los cambios en el input-file
     $('#logoInputFile').on('change',function(){
       var fileName = $(this).val().split('\\').pop();
@@ -161,13 +170,43 @@
       $(this).next('.custom-file-label').html(fileName);
     })
 
-    function limpiarCampos(nombre,social,logo) {
+    function envioDatosAjax(form,ev,destino,nombre,social,logo) {
       $(nombre+' > input').removeClass('is-invalid');
       $(social+' > input').removeClass('is-invalid');
       $(logo+' > .custom-file > #logo-invalid-feedback').html('');
       $(logo+' > .custom-file > .custom-file-label').css('border-color', '#DCDCDC');
+      ev.preventDefault();
+      var datos = new FormData(form);
+      $.ajax({
+        url:destino,
+        type:'POST',
+        data:datos,
+        contentType:false,
+        cache:false,
+        processData:false,
+        success: function (resp) {
+          var json = JSON.parse(resp);
+          window.location.replace(json.url);
+        },
+        statusCode:{
+          400: function(xhr) {
+            var json = JSON.parse(xhr.responseText);
+            if (json.nombre.length != 0) {
+              $(nombre+' > div').html(json.nombre);
+              $(nombre+' > input').addClass('is-invalid');
+            }
+            if (json.social.length != 0) {
+              $(social+' > div').html(json.social);
+              $(social+' > input').addClass('is-invalid');
+            }
+            if (json.typeImagen == 'ext_invalid') {
+              $(logo+' > .custom-file > #logo-invalid-feedback').html('Solo se permiten imagenes en PNG');
+              $(logo+' > .custom-file > .custom-file-label').css('border-color', '#dc3545');
+            }
+          }
+        }
+      })
     }
-
     $("#show-edit-League").click(function () {
       $("#editId > input").val($(".table-body-list-select > .id-column").html());
       $("#editNombre > input").val($(".table-body-list-select > .league-column > span").html());
@@ -185,82 +224,9 @@
         }
       })
     });
-
     //Acciona el submit del formulario de registro de league al hacer click en el boton #btn-add-league, qu se encuentra por fuera del formulario
     $("#btn-add-league").click(function () {$("#formAddLeague").submit();});
     $("#btn-edit-league").click(function () {$("#formEditLeague").submit();});
-
-    //Editar de Liga
-    $("#formEditLeague").submit(function(ev) {
-      limpiarCampos('#editNombre','#editSocial','#editLogo');
-      ev.preventDefault();
-      var datos = new FormData(this);
-      $.ajax({
-        url:"<?= base_url('Admin/edit_league') ?>",
-        type:'POST',
-        data:datos,
-        contentType:false,
-        cache:false,
-        processData:false,
-        success: function (resp) {
-          var json = JSON.parse(resp);
-          window.location.replace(json.url);
-        },
-        statusCode:{
-          400: function(xhr) {
-            var json = JSON.parse(xhr.responseText);
-            if (json.nombre.length != 0) {
-              $('#editNombre > div').html(json.nombre);
-              $('#editNombre > input').addClass('is-invalid');
-            }
-            if (json.social.length != 0) {
-              $('#editSocial > div').html(json.social);
-              $('#editSocial > input').addClass('is-invalid');
-            }
-            if (json.typeImagen == 'ext_invalid') {
-              $('#editLogo > .custom-file > #logo-invalid-feedback').html('Solo se permiten imagenes en PNG');
-              $('#editLogo > .custom-file > .custom-file-label').css('border-color', '#dc3545');
-            }
-          }
-        }
-      })
-    });
-
-    //Registro de Liga
-    $("#formAddLeague").submit(function(ev) {
-      limpiarCampos('#nombre','#social','#logo');
-      ev.preventDefault();
-      $.ajax({
-        url:"<?= base_url('Admin/save_league') ?>",
-        type:'POST',
-        data:new FormData(this),
-        contentType:false,
-        cache:false,
-        processData:false,
-        success: function (resp) {
-          var json = JSON.parse(resp);
-          window.location.replace(json.url);
-        },
-        statusCode:{
-          400: function(xhr) {
-            var json = JSON.parse(xhr.responseText);
-            console.log(json);
-            if (json.nombre.length != 0) {
-              $('#nombre > div').html(json.nombre);
-              $('#nombre > input').addClass('is-invalid');
-            }
-            if (json.social.length != 0) {
-              $('#social > div').html(json.social);
-              $('#social > input').addClass('is-invalid');
-            }
-            if (json.typeImagen == 'ext_invalid') {
-              $('#logo > .custom-file > #logo-invalid-feedback').html('Solo se permiten imagenes en PNG');
-              $('#logo > .custom-file > .custom-file-label').css('border-color', '#dc3545');
-            }
-          }
-        }
-      })
-    });
     $(".table-body-list").click(function () {
       $(".table-body-list").removeClass("table-body-list-select");
       $(this).addClass("table-body-list-select");
