@@ -9,8 +9,7 @@ class Admin extends CI_Controller {
 		$this->load->model("League_model");
 	}
 
-	public function list_league()
-	{
+	public function list_league(){
 		$data  = array(
 			'leagues' => $this->League_model->getLeagues()
 		);
@@ -20,15 +19,15 @@ class Admin extends CI_Controller {
 		$this->load->view('menu');
 		$this->load->view('admin/list_league',$data);
 	}
-	public function uploadImagen()
-	{
+	public function uploadImagen($name_imagen){
 		$config = array(
 			'upload_path' => './lib/logos',
 			'allowed_types' => 'png',
 			'encrypt_name' => true
 		);
 		$this->upload->initialize($config);
-		$this->upload->do_upload('editLogo');
+		$this->upload->do_upload($name_imagen);
+		$this->upload->do_upload($name_imagen);
 
 		if ($this->upload->data('file_size') != 0) {
 			if ($this->upload->data('file_ext') != '.png') {
@@ -43,6 +42,7 @@ class Admin extends CI_Controller {
 	}
 
 	public function edit_league(){
+		$name_imagen = $this->uploadImagen('editLogo');
 		$config = array(
 				array(
 					'field' => 'editNombre',
@@ -60,18 +60,19 @@ class Admin extends CI_Controller {
 		$this->form_validation->set_error_delimiters('','');
 		$this->form_validation->set_rules($config);
 
-		 if ($this->form_validation->run() == false || $this->uploadImagen() == 'ext_invalid') {
+
+		 if ($this->form_validation->run() == false || $name_imagen == 'ext_invalid') {
 			 $errors = array(
 				 'nombre' => form_error('editNombre'),
 				 'social' => form_error('editSocial'),
-				 'typeImagen' => $this->uploadImagen()
+				 'typeImagen' => $name_imagen
 				);
 			echo json_encode($errors);
 			$this->output->set_status_header(400);
 			exit;
 		 }
 
-		 if ($this->uploadImagen() == 'not_select') {
+		 if ($name_imagen == 'not_select') {
 				$dataLeague = array(
 					'id' => $this->input->post("editId"),
 					'nombre' => $this->input->post("editNombre"),
@@ -86,30 +87,23 @@ class Admin extends CI_Controller {
 			 'id' => $this->input->post("editId"),
 			 'nombre' => $this->input->post("editNombre"),
 			 'social_network' => $this->input->post("editSocial"),
-			 'logo' => $this->uploadImagen()
+			 'logo' => $name_imagen
 		 );
 		 $this->League_model->editLeague($dataLeague);
 		 echo json_encode(array('url' => base_url('Admin/list_league')));
 	}
-	public function state_league()
-	{
-		$id = $this->input->post("id");
-		$this->League_model->updateStateLeague($id);
-		echo json_encode(array('url' => base_url('Admin/list_league')));
-	}
-	public function save_league()
-	{
-
+	public function save_league(){
+		$name_imagen = $this->uploadImagen('logo');
 		$config = array(
 				array(
 					'field' => 'nombre',
-					'label' => 'Nombre',
+					'label' => 'nombre',
 					'rules' => 'required',
 					'errors' => array('required' => 'El %s es requerido')
 				),
 				array(
 					'field' => 'social',
-					'label' => 'Red Social',
+					'label' => 'red social',
 					'rules' => 'required',
 					'errors' => array('required' => 'La %s es requerida')
 				)
@@ -117,55 +111,48 @@ class Admin extends CI_Controller {
 		$this->form_validation->set_error_delimiters('','');
 		$this->form_validation->set_rules($config);
 
-		if($this->form_validation->run() === false){
-			$errors = array(
-				'nombre' => form_error('nombre'),
-				'social' => form_error('social')
-			 );
-			 echo json_encode($errors);
-			 $this->output->set_status_header(400);
-    }else {
-			$configUpload = array(
-				'upload_path' => './lib/logos',
-				'allowed_types' => 'png',
-				'encrypt_name' => true
-			);
-			$this->load->library('upload', $configUpload);
-			if ($this->upload->do_upload('logo')) {
-				$datosImagen = $this->upload->data();
-
-				$nombre = $this->input->post("nombre");
-				$social = $this->input->post("social");
-				$logo = $datosImagen['file_name'];
-				$date = date('Y-m-d');
-				$dataLeague = array(
-					'nombre' => $nombre,
-					'social_network' => $social,
-					'logo' => $logo,
-					'date' => $date
+		 if ($this->form_validation->run() == false || $name_imagen == 'ext_invalid') {
+			 $errors = array(
+				 'nombre' => form_error('nombre'),
+				 'social' => form_error('social'),
+				 'typeImagen' => $name_imagen
 				);
-				////////////////////////////////////////////
-				if ($this->League_model->save($dataLeague)) {
-					echo json_encode(array('url' => base_url('Admin/list_league')));
-				}else {
-					echo json_encode(array('error' => true));
-				}
-			}else {
-				//$this->upload->display_errors();
-				echo json_encode(array('typeImagen' => true));
-			}
-    }
+			echo json_encode($errors);
+			$this->output->set_status_header(400);
+			exit;
+		 }
+
+		 if ($name_imagen == 'not_select') {
+				$dataLeague = array(
+					'nombre' => $this->input->post("nombre"),
+					'social_network' => $this->input->post("social")
+				);
+				$this->League_model->save($dataLeague);
+				echo json_encode(array('url' => base_url('Admin/list_league')));
+				exit;
+		 }
+
+		 $dataLeague = array(
+			 'nombre' => $this->input->post("nombre"),
+			 'social_network' => $this->input->post("social"),
+			 'logo' => $name_imagen
+		 );
+		 $this->League_model->save($dataLeague);
+		 echo json_encode(array('url' => base_url('Admin/list_league')));
 	}
-	public function list_seanson()
-	{
+	public function state_league(){
+		$id = $this->input->post("id");
+		$this->League_model->updateStateLeague($id);
+		echo json_encode(array('url' => base_url('Admin/list_league')));
+	}
+	public function list_seanson(){
 		$datosHeader['url_base'] = base_url();
 		$datosHeader['title'] = 'Seansons';
 		$datos['header'] = $this->load->view('header',$datosHeader,true);
 		$datos['menu'] = $this->load->view('menu',$datosHeader,true);
 		$this->load->view('admin/list_seanson',$datos);
 	}
-	public function add_seanson()
-	{
+	public function add_seanson(){
     $datosHeader['url_base'] = base_url();
 		$datosHeader['title'] = 'Add Seanson';
 		$datos['header'] = $this->load->view('header',$datosHeader,true);

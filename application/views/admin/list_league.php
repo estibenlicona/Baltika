@@ -100,7 +100,7 @@
                 <div class="form-group" id="logo">
                   <label for="logo">Logo</label>
                   <div class="custom-file">
-                    <input name="logo" type="file" class="custom-file-input form-control-file" id="logoInputFile" lang="es" data-show-preview="false">
+                    <input name="logo" type="file" class="custom-file-input form-control-file" id="addlogoInputFile" lang="es" data-show-preview="false">
                     <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
                     <div id="logo-invalid-feedback"></div>
                   </div>
@@ -109,7 +109,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button id="btn-edit-league" class="nav-item btn btn-dark"><i class="material-icons md-24 light600">save</i></button>
+            <button id="btn-add-league" class="nav-item btn btn-dark"><i class="material-icons md-24 light600">save</i></button>
           </div>
         </div>
       </div>
@@ -131,7 +131,7 @@
             <td class="id-column"><?=$d->id?></td>
             <td class="league-column"><img src="<?=base_url('lib/logos/').$d->logo?>" width="40" height="50" alt="">  <span><?= $d->nombre;?></span></td>
             <td class="socail-column">
-              <a class="nav-item btn btn-dark" href="<?= $d->social_network; ?>"><img src="<?=base_url('lib\logos\facebook.png')?>" width="30" height="30"></a>
+              <a class="nav-item btn btn-dark" href="<?=$d->social_network;?>"><img src="<?=base_url('lib\logos\facebook.png')?>" width="30" height="30"></a>
             </td>
             <td class="state-column">
             <?php if ($d->estado == 1): ?>
@@ -150,18 +150,35 @@
 </html>
 <script type="text/javascript">
   (function ($) {
+    //Se validan los cambios en el input-file
+    $('#logoInputFile').on('change',function(){
+      var fileName = $(this).val().split('\\').pop();
+      $(this).next('.custom-file-label').html(fileName);
+    })
+    //Se validan los cambios en el input-file
+    $('#addlogoInputFile').on('change',function(){
+      var fileName = $(this).val().split('\\').pop();
+      $(this).next('.custom-file-label').html(fileName);
+    })
+
+    function limpiarCampos(nombre,social,logo) {
+      $(nombre+' > input').removeClass('is-invalid');
+      $(social+' > input').removeClass('is-invalid');
+      $(logo+' > .custom-file > #logo-invalid-feedback').html('');
+      $(logo+' > .custom-file > .custom-file-label').css('border-color', '#DCDCDC');
+    }
+
     $("#show-edit-League").click(function () {
       $("#editId > input").val($(".table-body-list-select > .id-column").html());
       $("#editNombre > input").val($(".table-body-list-select > .league-column > span").html());
       $("#editSocial > input").val($(".table-body-list-select > .socail-column > a").attr('href'));
-
-   });
+    });
 
    $("#estadoLeague").click(function () {
       $.ajax({
         url:"<?= base_url('Admin/state_league') ?>",
         type:'POST',
-        data:{id:$(".table-body-list-select > .input-id-column").html()},
+        data:{id:$(".table-body-list-select > .id-column").html()},
         success: function (resp) {
           var json = JSON.parse(resp);
           window.location.replace(json.url);
@@ -169,24 +186,15 @@
       })
     });
 
-    //Se validan los cambios en el input-file
-    $('#logoInputFile').on('change',function(){
-        var fileName = $(this).val().split('\\').pop();;
-        $(this).next('.custom-file-label').html(fileName);
-    })
     //Acciona el submit del formulario de registro de league al hacer click en el boton #btn-add-league, qu se encuentra por fuera del formulario
     $("#btn-add-league").click(function () {$("#formAddLeague").submit();});
     $("#btn-edit-league").click(function () {$("#formEditLeague").submit();});
 
     //Editar de Liga
     $("#formEditLeague").submit(function(ev) {
-      $('#editNombre > input').removeClass('is-invalid');
-      $('#editSocial > input').removeClass('is-invalid');
-      $('#editLogo > .custom-file > #logo-invalid-feedback').html('');
-      $('#editLogo > .custom-file > .custom-file-label').css('border-color', '#DCDCDC');
+      limpiarCampos('#editNombre','#editSocial','#editLogo');
       ev.preventDefault();
       var datos = new FormData(this);
-      //datos.id = $("#editId > input").val();
       $.ajax({
         url:"<?= base_url('Admin/edit_league') ?>",
         type:'POST',
@@ -201,7 +209,6 @@
         statusCode:{
           400: function(xhr) {
             var json = JSON.parse(xhr.responseText);
-
             if (json.nombre.length != 0) {
               $('#editNombre > div').html(json.nombre);
               $('#editNombre > input').addClass('is-invalid');
@@ -221,8 +228,7 @@
 
     //Registro de Liga
     $("#formAddLeague").submit(function(ev) {
-      $('#nombre > input').removeClass('is-invalid');
-      $('#social > input').removeClass('is-invalid');
+      limpiarCampos('#nombre','#social','#logo');
       ev.preventDefault();
       $.ajax({
         url:"<?= base_url('Admin/save_league') ?>",
@@ -238,6 +244,7 @@
         statusCode:{
           400: function(xhr) {
             var json = JSON.parse(xhr.responseText);
+            console.log(json);
             if (json.nombre.length != 0) {
               $('#nombre > div').html(json.nombre);
               $('#nombre > input').addClass('is-invalid');
@@ -245,6 +252,10 @@
             if (json.social.length != 0) {
               $('#social > div').html(json.social);
               $('#social > input').addClass('is-invalid');
+            }
+            if (json.typeImagen == 'ext_invalid') {
+              $('#logo > .custom-file > #logo-invalid-feedback').html('Solo se permiten imagenes en PNG');
+              $('#logo > .custom-file > .custom-file-label').css('border-color', '#dc3545');
             }
           }
         }
@@ -260,6 +271,5 @@
     setInterval(function(){
        $('#on').removeClass("on600");
      }, 400);
-
   })(jQuery)
 </script>
