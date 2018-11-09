@@ -9,7 +9,7 @@ class Seanson_model extends CI_Model {
   public function addSeanson($nombre)
   {
     echo $nombre;
-    $this->db->query("INSERT INTO seanson(nombre,date) VALUES('$nombre',now())");
+    $this->db->query("INSERT INTO seanson(nombre,date) VALUES('$nombre',Date_format(now(),'%Y-%m-%d %h:%i'))");
   }
   public function deleteSeanson($id){
     $this->db->query("UPDATE seanson SET estado = 0 WHERE id = $id");

@@ -8,13 +8,19 @@ class League extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->library('upload');
 		$this->load->model("Seanson_model");
+		$this->load->model("Tournament_model");
 	}
   public function index(){
     $datosHeader['title'] = 'Leagues';
     $this->load->view("header",$datosHeader);
     $this->load->view('menu');
+
     //$data  = array('seansons' => $this->Seanson_model->getSeansons());
     //$this->load->view('seanson',$data);
-    $this->load->view('league');
+    $datos = [
+      'seansons' => $this->Seanson_model->getSeansons(),
+      'tournaments' => $this->Tournament_model->getTournament()
+    ];
+    $this->load->view('league',$datos);
   }
 }

@@ -182,6 +182,17 @@ transition: all 1s ease;
 .seanson-column{
   width: 75%;
 }
+/* Configuracion Tabla Leagues*/
+
+.league-column{
+  width: 30%;
+}
+.teams-column,.playedgames-column,.game-column,.edit-column,.delete-column{
+  width: 5%;
+}
+.scoretables-column,.created-column{
+  width: 10%;
+}
 /*////////////////////////////////////////////////////////*/
 #logo-invalid-feedback{
   width: 100%;
