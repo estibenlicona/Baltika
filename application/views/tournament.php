@@ -3,11 +3,7 @@
     <div class="container-fluid">
       <nav class="navbar navbar-light bg-light">
         <div class="col-sm">
-          <button type="button" data-toggle="modal" data-target="#addLeague" class="nav-item btn btn-dark"><i class="opciones-nav icono-btn material-icons md-24 light600">add_box</i></button>
-          <button id="show-edit-League" type="button" data-toggle="modal" data-target="#editLeagueModal" class="nav-item btn btn-dark"><i class="opciones-nav icono-btn material-icons md-24 light600">edit</i></button>
-          <button data-toggle="modal" data-target="#state-league" type="button" class="nav-item btn btn-dark">
-            <i class="opciones-nav icono-btn material-icons md-24 light600">radio_button_checked</i>
-          </button>
+          <button type="button" data-toggle="modal" data-target="#addLeague" class="nav-item btn btn-dark"><i class="opciones-nav icono-btn material-icons md-18 light600">add_box</i></button>
         </div>
       </nav>
     </div>
@@ -122,23 +118,28 @@
             <td class="id-column">Id</td>
             <td class="league-column">League</td>
             <td class="social-column">Social</td>
-            <td class="state-column">State</td>
+            <td class="state-column">Edit</td>
+            <td class="state-column">Delete</td>
             <td class="space-column"></td>
           </tr>
         <?php foreach ($leagues as $key => $d): ?>
           <tr class="table-body-list">
             <td class="space-column"></td>
-            <td class="id-column"><?=$d->id?></td>
-            <td class="league-column"><img src="<?=base_url('lib/logos/').$d->logo?>" width="40" height="50" alt="">  <span><?= $d->nombre;?></span></td>
+            <td class="id-column"><span><?=$d->id?></span></td>
+            <td class="league-column"><img src="<?=base_url('lib/logos/').$d->logo?>" width="50" height="50" alt="">  <span><?= $d->nombre;?></span></td>
             <td class="socail-column">
-              <a class="nav-item btn btn-dark" href="<?=$d->social_network;?>"><img src="<?=base_url('lib\logos\facebook.png')?>" width="30" height="30"></a>
+              <a class="nav-item btn btn-dark" href="<?=$d->social_network;?>">
+                <i class="opciones-nav icono-btn material-icons md-18 light600 editar">public</i>
+              </a>
             </td>
             <td class="state-column">
-            <?php if ($d->estado == 1): ?>
-              <button class="state-select nav-item btn btn-dark" type="button">
-                <i id="on" class="opciones-nav icono-btn material-icons md-24 light600">radio_button_checked</i>
-              </button>
-            <?php endif; ?>
+              <a href="#" class="state-select nav-item btn btn-dark editar" data-toggle="modal" data-target="#editLeagueModal" href="#">
+                <i class="opciones-nav icono-btn material-icons md-18 light600">edit</i>
+              </a>
+            </td>
+            <td class="state-column">
+              <a class="state-select nav-item btn btn-dark" href="<?=base_url('tournament/delete/').$d->id?>">
+                <i class="opciones-nav icono-btn material-icons md-18 light600">delete_outline</i></a>
             </td>
             <td class="space-column"></td>
           </tr>
@@ -150,14 +151,20 @@
 </html>
 <script type="text/javascript">
   (function ($) {
+    $(".editar").click(function(){
+      $("#editId > input").val($(this).parents("tr").find("td > span").eq(0).html());
+      $("#editNombre > input").val($(this).parents("tr").find("td > span").eq(1).html());
+      $("#editSocial > input").val($(this).parents("tr").find("td > a").eq(0).attr('href'));
+    });
+
     //Editar de Liga
     $("#formEditLeague").submit(function(ev) {
-      envioDatosAjax(this,ev,'<?= base_url("Admin/edit_league")?>','#editNombre','#editSocial','#editLogo');
+      envioDatosAjax(this,ev,'<?= base_url("Tournament/edit")?>','#editNombre','#editSocial','#editLogo');
     });
 
     //Registro de Liga
     $("#formAddLeague").submit(function(ev) {
-      envioDatosAjax(this,ev,'<?= base_url("Admin/save_league")?>','#nombre','#social','#logo');
+      envioDatosAjax(this,ev,'<?= base_url("Tournament/add")?>','#nombre','#social','#logo');
     });
     //Se validan los cambios en el input-file
     $('#logoInputFile').on('change',function(){
@@ -207,15 +214,9 @@
         }
       })
     }
-    $("#show-edit-League").click(function () {
-      $("#editId > input").val($(".table-body-list-select > .id-column").html());
-      $("#editNombre > input").val($(".table-body-list-select > .league-column > span").html());
-      $("#editSocial > input").val($(".table-body-list-select > .socail-column > a").attr('href'));
-    });
-
    $("#estadoLeague").click(function () {
       $.ajax({
-        url:"<?= base_url('Admin/state_league') ?>",
+        url:"<?= base_url('Tournament/state_league') ?>",
         type:'POST',
         data:{id:$(".table-body-list-select > .id-column").html()},
         success: function (resp) {
@@ -231,11 +232,5 @@
       $(".table-body-list").removeClass("table-body-list-select");
       $(this).addClass("table-body-list-select");
     })
-    setInterval(function(){
-       $('#on').addClass("on600");
-     }, 200);
-    setInterval(function(){
-       $('#on').removeClass("on600");
-     }, 400);
   })(jQuery)
 </script>

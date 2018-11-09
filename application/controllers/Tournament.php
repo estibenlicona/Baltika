@@ -1,24 +1,23 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Admin extends CI_Controller {
+class Tournament extends CI_Controller {
+
 	public function __construct(){
 		parent::__construct();
 		$this->load->helper('form','url');
 		$this->load->library('form_validation');
 		$this->load->library('upload');
-		$this->load->model("League_model");
+		$this->load->model("Tournament_model");
 	}
-
-	public function list_league(){
-		$data  = array(
-			'leagues' => $this->League_model->getLeagues()
-		);
-
+	// Vista inicial para configurar Liga
+	public function index(){
+		$data  = array('leagues' => $this->Tournament_model->getTournament());
 		$datosHeader['title'] = 'Leagues';
 		$this->load->view("header",$datosHeader);
 		$this->load->view('menu');
-		$this->load->view('admin/list_league',$data);
+		$this->load->view('tournament',$data);
 	}
+	// Cargar Imagen
 	public function uploadImagen($name_imagen){
 		$config = array(
 			'upload_path' => './lib/logos',
@@ -40,8 +39,8 @@ class Admin extends CI_Controller {
 		}
 		return $this->upload->data('file_name');
 	}
-
-	public function edit_league(){
+	//Editar Liga
+	public function edit(){
 		$name_imagen = $this->uploadImagen('editLogo');
 		$config = array(
 				array(
@@ -78,8 +77,8 @@ class Admin extends CI_Controller {
 					'nombre' => $this->input->post("editNombre"),
 					'social_network' => $this->input->post("editSocial")
 				);
-				$this->League_model->editLeague($dataLeague);
-				echo json_encode(array('url' => base_url('Admin/list_league')));
+				$this->Tournament_model->editLeague($dataLeague);
+				echo json_encode(array('url' => base_url('tournament')));
 				exit;
 		 }
 
@@ -89,10 +88,11 @@ class Admin extends CI_Controller {
 			 'social_network' => $this->input->post("editSocial"),
 			 'logo' => $name_imagen
 		 );
-		 $this->League_model->editLeague($dataLeague);
-		 echo json_encode(array('url' => base_url('Admin/list_league')));
+		 $this->Tournament_model->editLeague($dataLeague);
+		 echo json_encode(array('url' => base_url('tournament')));
 	}
-	public function save_league(){
+	//guardar Liga
+	public function add(){
 		$name_imagen = $this->uploadImagen('logo');
 		$config = array(
 				array(
@@ -127,8 +127,8 @@ class Admin extends CI_Controller {
 					'nombre' => $this->input->post("nombre"),
 					'social_network' => $this->input->post("social")
 				);
-				$this->League_model->save($dataLeague);
-				echo json_encode(array('url' => base_url('Admin/list_league')));
+				$this->Tournament_model->save($dataLeague);
+				echo json_encode(array('url' => base_url('tournament')));
 				exit;
 		 }
 
@@ -137,27 +137,13 @@ class Admin extends CI_Controller {
 			 'social_network' => $this->input->post("social"),
 			 'logo' => $name_imagen
 		 );
-		 $this->League_model->save($dataLeague);
-		 echo json_encode(array('url' => base_url('Admin/list_league')));
+		 $this->Tournament_model->save($dataLeague);
+		 echo json_encode(array('url' => base_url('tournament')));
 	}
-	public function state_league(){
-		$id = $this->input->post("id");
-		$this->League_model->updateStateLeague($id);
-		echo json_encode(array('url' => base_url('Admin/list_league')));
+	//Cambiar estado a liga
+	public function delete($id){
+		$this->Tournament_model->deleteTournament($id);
+		redirect(base_url('tournament'), 'location');
 	}
-	public function list_seanson(){
-		$datosHeader['url_base'] = base_url();
-		$datosHeader['title'] = 'Seansons';
-		$datos['header'] = $this->load->view('header',$datosHeader,true);
-		$datos['menu'] = $this->load->view('menu',$datosHeader,true);
-		$this->load->view('admin/list_seanson',$datos);
-	}
-	public function add_seanson(){
-    $datosHeader['url_base'] = base_url();
-		$datosHeader['title'] = 'Add Seanson';
-		$datos['header'] = $this->load->view('header',$datosHeader,true);
-		$datos['menu'] = $this->load->view('menu',$datosHeader,true);
-		$datos['footer'] = $this->load->view('footer',$datosHeader,true);
-		$this->load->view('admin/add_seanson',$datos);
-	}
+
 }

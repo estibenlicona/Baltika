@@ -1,13 +1,20 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class League extends CI_Controller {
-	public function add_league()
-	{
-    $datosHeader['url_base'] = base_url();
-		$datosHeader['title'] = 'Home';
-		$datos['header'] = $this->load->view('header',$datosHeader,true);
-		$datos['menu'] = $this->load->view('menu',$datosHeader,true);
-		$datos['footer'] = $this->load->view('footer',$datosHeader,true);
-		$this->load->view('admin/add_league',$datos);
+
+	public function __construct(){
+		parent::__construct();
+		$this->load->helper('form','url');
+		$this->load->library('form_validation');
+		$this->load->library('upload');
+		$this->load->model("Seanson_model");
 	}
+  public function index(){
+    $datosHeader['title'] = 'Leagues';
+    $this->load->view("header",$datosHeader);
+    $this->load->view('menu');
+    //$data  = array('seansons' => $this->Seanson_model->getSeansons());
+    //$this->load->view('seanson',$data);
+    $this->load->view('league');
+  }
 }

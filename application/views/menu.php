@@ -3,44 +3,44 @@
   <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
     <div class="menu-list">
       <ul  id="menu-content" class="menu-content collapse out">
-        <li data-toggle="collapse" data-target="#service" class="<?= $this->uri->segment(1) == 'Admin' ? 'active' : '';  ?>" collapsed>
-          <a href="#">
-          <i class="finca"></i> Admin <span class="arrow"></span>
+        <li data-toggle="collapse" data-target="#service" class="" collapsed>
+          <a href=""<?=base_url('admin')?>"">
+            <i></i> Control Panel
           </a>
         </li>
-        <ul class="sub-menu collapse" id="service">
-          <li><a href="#"> Matches </a></li>
-          <li class="<?= $this->uri->segment(2) == 'list_league' ? 'active' : '';  ?>"><a href="<?=base_url('admin/list_league')?>"> Leagues </a></li>
-          <li><a href="<?=base_url('admin/list_seanson')?>"> Seansons </a></li>
-          <li><a href="<?=base_url('admin/list_tourney')?>"> Tourney </a></li>
-          <li><a href="<?=base_url('admin/list_teams')?>"> Teams </a></li>
-          <li><a href="<?=base_url('admin/list_players')?>"> Players </a></li>
-          <li><a href="<?=base_url('admin/list_events')?>"> Events </a></li>
-          <li><a href="<?=base_url('admin/list_adwars')?>"> Adwars </a></li>
-        </ul>
-        <li data-toggle="collapse" data-target="#liga" class="class="collapsed"">
-          <a href="#">
-          <i class="lote"></i> Leagues <span class="arrow"></span>
+        <li data-toggle="collapse" class="<?= $this->uri->segment(1) == 'tournament' ? 'active' : '';  ?>">
+          <a href="<?=base_url('tournament')?>">
+          <i></i> Tournament
           </a>
         </li>
-        <ul class="sub-menu collapse" id="liga">
-          <li><a href="#"> Fixture </a></li>
-          <li><a href="#"> Killers </a></li>
-          <li><a href="#"> Matchday </a></li>
-        </ul>
-        <li data-toggle="collapse" data-target="#copa" class="class="collapsed"">
-          <a href="#">
-          <i class="lote"></i> Seansons <span class="arrow"></span>
+        <li data-toggle="collapse" class="<?= $this->uri->segment(1) == 'seanson' ? 'active' : '';  ?>">
+          <a href="<?=base_url('seanson')?>">
+          <i></i> Seansons
           </a>
         </li>
-        <ul class="sub-menu collapse" id="copa">
-          <li><a href="#"> Fixture </a></li>
-          <li><a href="#"> Goleadores </a></li>
-          <li><a href="#"> Juegos </a></li>
-        </ul>
-        <li data-toggle="collapse" data-target="#alloffame" class="class="collapsed"">
-          <a href="#">
-          <i class="trabajadores"></i> All of Fame
+        <li data-toggle="collapse" class="<?= $this->uri->segment(1) == 'league' ? 'active' : '';  ?>">
+          <a href="<?=base_url('league')?>">
+            <i></i> Leagues
+          </a>
+        </li>
+        <li data-toggle="collapse" class="<?= $this->uri->segment(1) == 'teams' ? 'active' : '';  ?>">
+          <a href="<?=base_url('teams')?>">
+            <i></i> Teams
+          </a>
+        </li>
+        <li data-toggle="collapse" class="<?= $this->uri->segment(1) == 'games' ? 'active' : '';  ?>">
+          <a href="<?=base_url('games')?>">
+            <i></i> Games
+          </a>
+        </li>
+        <li data-toggle="collapse" class="<?= $this->uri->segment(1) == 'scoretables' ? 'active' : '';  ?>">
+          <a href="<?=base_url('alloffame')?>">
+            <i></i> Score Tables
+          </a>
+        </li>
+        <li data-toggle="collapse" class="<?= $this->uri->segment(1) == 'alloffame' ? 'active' : '';  ?>">
+          <a href="<?=base_url('alloffame')?>">
+            <i></i> All of Fame
           </a>
         </li>
       <ul>
