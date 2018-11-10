@@ -23,8 +23,13 @@
             <i></i> Leagues
           </a>
         </li>
-        <li data-toggle="collapse" class="<?= $this->uri->segment(1) == 'teams' ? 'active' : '';  ?>">
-          <a href="<?=base_url('teams')?>">
+        <li data-toggle="collapse" class="<?= $this->uri->segment(1) == 'manager' ? 'active' : '';  ?>">
+          <a href="<?=base_url('manager')?>">
+            <i></i> Managers
+          </a>
+        </li>
+        <li data-toggle="collapse" class="<?= $this->uri->segment(1) == 'team' ? 'active' : '';  ?>">
+          <a href="<?=base_url('team')?>">
             <i></i> Teams
           </a>
         </li>

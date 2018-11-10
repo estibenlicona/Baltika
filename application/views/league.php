@@ -17,28 +17,44 @@
             <td class="league-column">League</td>
             <td class="created-column">Created</td>
             <td class="teams-column">Teams</td>
-            <td class="playedgames-column">Played/Games</td>
-            <td class="game-column">Game</td>
-            <td class="scoretables-column">Score Tables</td>
+            <td class="playedgames-column">Played</td>
+            <td class="w-5 p-3">Games</td>
+            <td class="w-5 p-3">Ranking</td>
             <td class="edit-column">Edit</td>
             <td class="delete-column">Delete</td>
             <td class="space-column"></td>
           </tr>
-          <!--
-        <?php foreach ($seansons as $s): ?>
+        <?php foreach ($leagues as $l): ?>
           <tr class="table-body-list">
             <td class="space-column"></td>
-            <td class="id-column"><?=$s->id?></td>
-            <td class="seanson-column">Seanson #<span><?= $s->pos;?></span></td>
-            <td class="date-column"><?= $s->date;?></td>
-            <td class="state-column">
-              <a class="state-select nav-item btn btn-dark" href="<?=base_url('seanson/delete/').$s->id?>">
-                <i class="opciones-nav icono-btn material-icons md-18 light600">delete_outline</i></a>
+            <td class="id-column"><span><?=$l->l_id?></span></td>
+            <td class="league-column"><span><?= $l->league;?></span></td>
+            <td class="created-column"><span><?= $l->created;?></span></td>
+            <td class="teams-column"><span><?= $l->teams;?></span></td>
+            <td class="playedgames-column"><span><?= $l->games_p.' / '.$l->games?></span></td>
+            <td class="w-5 p-3">
+              <a href="#" class="state-select nav-item btn btn-success" href="#">
+                <i class="opciones-nav icono-btn material-icons md-18 light600">remove_red_eye</i>
+              </a>
+            </td>
+            <td class="w-5 p-3">
+              <a href="#" class="state-select nav-item btn btn-warning" href="#">
+                <i class="opciones-nav icono-btn material-icons md-18 light600">assessment</i>
+              </a>
+            </td>
+            <td class="edit-column">
+              <a href="#" class="state-select nav-item btn btn-dark" href="#">
+                <i class="opciones-nav icono-btn material-icons md-18 light600">edit</i>
+              </a>
+            </td>
+            <td class="delete-column">
+              <a href="#" class="state-select nav-item btn btn-dark" href="#">
+                <i class="opciones-nav icono-btn material-icons md-18 light600">delete</i>
+              </a>
             </td>
             <td class="space-column"></td>
           </tr>
         <?php endforeach; ?>
-        -->
         </tbody>
       </table>
     </div>
@@ -53,38 +69,42 @@
             </div>
             <div class="modal-body">
               <div class="col-sm">
-                <form id="formAddLeague" enctype="multipart/form-data">
-                  <div class="form-group" id="nombre">
+                <form id="formAddLeague" action="<?=base_url('league/add')?>" method="post" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text"class="form-control" name="nombre" placeholder="Nombre" required>
+                  </div>
+                  <div class="form-group" id="tournament">
                     <label for="nombre">Tournament</label>
-                    <select class="form-control">
+                    <select class="form-control" name="tournament" required>
                       <?php foreach ($tournaments as $t): ?>
                         <option value="<?=$t->id?>"><?=$t->nombre?></option>
                       <?php endforeach; ?>
                     </select>
                     <div class="invalid-feedback"></div>
                   </div>
-                  <div class="form-group" id="nombre">
+                  <div class="form-group" id="seanson">
                     <label for="nombre">Seanson</label>
-                    <select class="form-control">
+                    <select class="form-control" name="seanson" required>
                       <?php foreach ($seansons as $s): ?>
-                        <option value="<?=$t->id?>"><?=$s->nombre?></option>
+                        <option value="<?=$s->id?>"><?=$s->nombre?></option>
                       <?php endforeach; ?>
                     </select>
                     <div class="invalid-feedback"></div>
                   </div>
                   <div class="form-group">
-                    <label for="tokens">Key words (data-tokens)</label>
-                    <select id="tokens" class="selectpicker form-control" multiple data-live-search="true">
-                      <option data-tokens="first">I actually am called "one"</option>
-                      <option data-tokens="second">And me "two"</option>
-                      <option data-tokens="last">I am "three"</option>
+                    <label>Teams</label>
+                    <select id="tokens" class="selectpicker form-control" data-live-search="true" name="teams[]" multiple required>
+                      <?php foreach ($teams as $t): ?>
+                        <option data-tokens="first" value="<?=$t->t_id?>"><span><?=$t->team.' - '.$t->manager?></span></option>
+                      <?php endforeach; ?>
                     </select>
+                  </div>
+                  <div class="modal-footer">
+                    <button id="btn-add-league" type="submit" class="nav-item btn btn-dark"><i class="material-icons md-24 light600">save</i></button>
                   </div>
                 </form>
               </div>
-            </div>
-            <div class="modal-footer">
-              <button id="btn-add-league" class="nav-item btn btn-dark"><i class="material-icons md-24 light600">save</i></button>
             </div>
           </div>
         </div>
