@@ -3,11 +3,6 @@
   <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
     <div class="menu-list">
       <ul  id="menu-content" class="menu-content collapse out">
-        <li data-toggle="collapse" data-target="#service" class="" collapsed>
-          <a href=""<?=base_url('admin')?>"">
-            <i></i> Control Panel
-          </a>
-        </li>
         <li data-toggle="collapse" class="<?= $this->uri->segment(1) == 'tournament' ? 'active' : '';  ?>">
           <a href="<?=base_url('tournament')?>">
           <i></i> Tournament
@@ -23,9 +18,9 @@
             <i></i> Leagues
           </a>
         </li>
-        <li data-toggle="collapse" class="<?= $this->uri->segment(1) == 'manager' ? 'active' : '';  ?>">
-          <a href="<?=base_url('manager')?>">
-            <i></i> Managers
+        <li data-toggle="collapse" class="<?= $this->uri->segment(1) == 'player' ? 'active' : '';  ?>">
+          <a href="<?=base_url('player')?>">
+            <i></i> Players
           </a>
         </li>
         <li data-toggle="collapse" class="<?= $this->uri->segment(1) == 'team' ? 'active' : '';  ?>">
@@ -33,20 +28,14 @@
             <i></i> Teams
           </a>
         </li>
-        <li data-toggle="collapse" class="<?= $this->uri->segment(1) == 'games' ? 'active' : '';  ?>">
-          <a href="<?=base_url('games')?>">
-            <i></i> Games
-          </a>
-        </li>
-        <li data-toggle="collapse" class="<?= $this->uri->segment(1) == 'scoretables' ? 'active' : '';  ?>">
-          <a href="<?=base_url('alloffame')?>">
-            <i></i> Score Tables
+        <li data-toggle="collapse" class="<?= $this->uri->segment(1) == 'users' ? 'active' : '';  ?>">
+          <a href="<?=base_url('users')?>">
+            <i></i> Users
           </a>
         </li>
         <li data-toggle="collapse" class="<?= $this->uri->segment(1) == 'alloffame' ? 'active' : '';  ?>">
-          <a href="<?=base_url('alloffame')?>">
-            <i></i> All of Fame
-          </a>
+          <a href="<?=base_url('login/session_destroy')?>">
+            <i></i> Exit</a>
         </li>
       <ul>
    </div>

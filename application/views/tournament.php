@@ -1,13 +1,37 @@
 <body>
-  <nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-      <nav class="navbar navbar-light bg-light">
-        <div class="col-sm">
-          <button type="button" data-toggle="modal" data-target="#addLeague" class="nav-item btn btn-dark"><i class="opciones-nav icono-btn material-icons md-18 light600">add_box</i></button>
-        </div>
-      </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-1 p-2 list-head text-center">
+        <button type="button" data-toggle="modal" data-target="#modal-add-tournament" class="btn btn-outline-light btn-sm">Add</button>
+      </div>
+      <div class="col-8 p-2 list-head">League</div>
+      <div class="col-1 p-2 list-head">Social</div>
+      <div class="col-1 p-2 list-head">Edit</div>
+      <div class="col-1 p-2 list-head">Delete</div>
     </div>
-  </nav>
+    <br>
+    <?php foreach ($leagues as  $key => $d): ?>
+    <div class="row">
+      <div class="col-1 p-1 text-center"><?=$key+1?></div>
+      <div class="col-8 p-1" id="<?=$d->id?>"><img src="<?=base_url('lib/logos/').$d->logo?>" width="50" height="50"><span><?= $d->nombre;?></span></div>
+      <div class="col-1 p-1 text-left">
+        <a class="nav-item btn btn-dark" href="<?=$d->social_network;?>">
+          <i class="opciones-nav icono-btn material-icons md-18 light600 editar">public</i>
+        </a>
+      </div>
+      <div class="col-1 p-1 text-left">
+        <a href="#" class="state-select nav-item btn btn-dark editar" data-toggle="modal" data-target="#editLeagueModal" href="#">
+          <i class="opciones-nav icono-btn material-icons md-18 light600">edit</i>
+        </a>
+      </div>
+      <div class="col-1 p-1 text-left">
+        <a class="state-select nav-item btn btn-dark" href="<?=base_url('tournament/delete/').$d->id?>">
+          <i class="opciones-nav icono-btn material-icons md-18 light600">delete_outline</i>
+        </a>
+      </div>
+    </div>
+    <?php endforeach; ?>
+  </div>
   <div class="modal fade" id="state-league" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -71,7 +95,7 @@
         </div>
       </div>
     </div>
-  <div class="modal fade" id="addLeague" tabindex="-1" role="dialog" aria-labelledby="addLeagueTitle" aria-hidden="true">
+  <div class="modal fade" id="modal-add-tournament" tabindex="-1" role="dialog" aria-labelledby="addLeagueTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -110,51 +134,14 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <table class="table list-torneos">
-        <tbody>
-          <tr class="list-head">
-            <td class="space-column"></td>
-            <td class="id-column">Id</td>
-            <td class="league-column">League</td>
-            <td class="social-column">Social</td>
-            <td class="state-column">Edit</td>
-            <td class="state-column">Delete</td>
-            <td class="space-column"></td>
-          </tr>
-        <?php foreach ($leagues as $key => $d): ?>
-          <tr class="table-body-list">
-            <td class="space-column"></td>
-            <td class="id-column"><span><?=$d->id?></span></td>
-            <td class="league-column"><img src="<?=base_url('lib/logos/').$d->logo?>" width="50" height="50" alt="">  <span><?= $d->nombre;?></span></td>
-            <td class="socail-column">
-              <a class="nav-item btn btn-dark" href="<?=$d->social_network;?>">
-                <i class="opciones-nav icono-btn material-icons md-18 light600 editar">public</i>
-              </a>
-            </td>
-            <td class="state-column">
-              <a href="#" class="state-select nav-item btn btn-dark editar" data-toggle="modal" data-target="#editLeagueModal" href="#">
-                <i class="opciones-nav icono-btn material-icons md-18 light600">edit</i>
-              </a>
-            </td>
-            <td class="state-column">
-              <a class="state-select nav-item btn btn-dark" href="<?=base_url('tournament/delete/').$d->id?>">
-                <i class="opciones-nav icono-btn material-icons md-18 light600">delete_outline</i></a>
-            </td>
-            <td class="space-column"></td>
-          </tr>
-        <?php endforeach; ?>
-        </tbody>
-      </table>
-    </div>
   </body>
 </html>
 <script type="text/javascript">
   (function ($) {
     $(".editar").click(function(){
-      $("#editId > input").val($(this).parents("tr").find("td > span").eq(0).html());
-      $("#editNombre > input").val($(this).parents("tr").find("td > span").eq(1).html());
-      $("#editSocial > input").val($(this).parents("tr").find("td > a").eq(0).attr('href'));
+      $("#editId input").val($(this).parent().siblings().eq(1).attr('id'));
+      $("#editNombre input").val($(this).parent().siblings().eq(1).find("span").html());
+      $("#editSocial input").val($(this).parent().siblings().eq(2).find("a").attr("href"));
     });
 
     //Editar de Liga
@@ -197,6 +184,7 @@
         },
         statusCode:{
           400: function(xhr) {
+            console.log(xhr);
             var json = JSON.parse(xhr.responseText);
             if (json.nombre.length != 0) {
               $(nombre+' > div').html(json.nombre);

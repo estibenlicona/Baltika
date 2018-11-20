@@ -9,12 +9,12 @@ class Manager_model extends CI_Model {
   }
   public function getPaises()
   {
-    $datos =  $this->db->query("SELECT * FROM paises ORDER BY FIELD(nombre,'Nicaragua','Venezuela','Argentina','Mexico','Colombia') DESC");
+    $datos =  $this->db->query("SELECT * FROM paises ORDER BY FIELD(nombre,'Nicaragua','Venezuela','Argentina','Mexico','Colombia','Select ...') DESC");
     return $datos->result();
   }
   public function getManagers()
   {
-    $datos =  $this->db->query("SELECT m.id id_manager, m.nombre manager, m.date created, p.id id_pais, p.nombre nacionalidad FROM managers m, paises p WHERE p.id = m.nacionalidad AND m.estado = 1");
+    $datos =  $this->db->query("SELECT m.id id_manager, m.username manager, m.date_create created, p.id id_pais, p.nombre nacionalidad FROM usuarios m, paises p WHERE p.id = m.pais AND m.estado = 1");
     return $datos->result();
   }
   public function deleteManager($id)

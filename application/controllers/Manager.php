@@ -4,6 +4,7 @@ class Manager extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+		$this->load->library('session');
 		$this->load->helper('form','url');
 		$this->load->library('form_validation');
 		$this->load->library('upload');
@@ -12,13 +13,16 @@ class Manager extends CI_Controller {
 	}
   public function index(){
     $datosHeader['title'] = 'Managers';
-    $this->load->view("header",$datosHeader);
-    $this->load->view('menu');
+		$datos_session = ['usuario' => $this->session->userdata('usuario')];
 		$datos = [
 			'managers' => $this->Manager_model->getManagers(),
 			'paises' => $this->Manager_model->getPaises()
 		];
+		$this->load->view("header",$datosHeader);
+		$this->load->view('nav',$datos_session);
+		$this->load->view('menu');
     $this->load->view('manager',$datos);
+		$this->load->view('footer');
   }
 
 	public function add()

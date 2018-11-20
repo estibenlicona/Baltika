@@ -1,47 +1,33 @@
 <body>
-  <nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-      <nav class="navbar navbar-light bg-light">
-        <div class="col-sm">
-            <button type="button" data-toggle="modal" data-target="#modal-add-manager" class="nav-item btn btn-dark"><i class="opciones-nav icono-btn material-icons md-18 light600">add_box</i></button>
-        </div>
-      </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-1 p-2 list-head text-center">
+        <button type="button" data-toggle="modal" data-target="#modal-add-manager" class="btn btn-outline-light btn-sm">Add</button>
+      </div>
+      <div class="col-5 p-2 list-head">Manager</div>
+      <div class="col-2 p-2 list-head">Nationality</div>
+      <div class="col-2 p-2 list-head">Created</div>
+      <div class="col-1 p-2 list-head text-center">Edit</div>
+      <div class="col-1 p-2 list-head text-center">Delete</div>
+    </div><br>
+    <?php foreach ($managers as $key => $m): ?>
+    <div class="row">
+      <div class="col-1 p-1 text-center"><?=$key+1?></div>
+      <div class="col-5 p-1" id="<?=$m->id_manager?>"><?=$m->manager?></div>
+      <div class="col-2 p-1" id="<?=$m->id_pais?>"><?=$m->nacionalidad?></div>
+      <div class="col-2 p-1"><?=$m->created?></div>
+      <div class="col-1 p-1 text-center">
+        <a class="state-select nav-item btn btn-dark editar" data-toggle="modal" data-target="#modal-edit-manager">
+          <i class="opciones-nav icono-btn material-icons md-18 light600">edit</i>
+        </a></div>
+      <div class="col-1 p-1 text-center">
+        <a class="state-select nav-item btn btn-dark" href="<?=base_url('manager/delete/').$m->id_manager?>">
+          <i class="opciones-nav icono-btn material-icons md-18 light600">delete_outline</i>
+        </a>
+      </div>
     </div>
-  </nav>
-  <div class="row">
-      <table class="table list-torneos">
-        <tbody>
-          <tr class="list-head">
-            <td class="space-column"></td>
-            <td class="id-column">Id</td>
-            <td class="manager-column">Manager</td>
-            <td class="created-column">Nacionalidad</td>
-            <td class="teams-column">Created</td>
-            <td class="teams-column">Editar</td>
-            <td class="teams-column">Eliminar</td>
-            <td class="space-column"></td>
-          </tr>
-        <?php foreach ($managers as $m): ?>
-          <tr class="table-body-list">
-            <td class="space-column"></td>
-            <td class="id-column"><span><?=$m->id_manager?></span></td>
-            <td class="manager-column"><span><?=$m->manager?></span></td>
-            <td class="manager-column"><span id="<?=$m->id_pais?>"><?=$m->nacionalidad?></span></td>
-            <td class="date-column"><?=$m->created?></td>
-            <td class="state-column">
-              <a class="state-select nav-item btn btn-dark editar" data-toggle="modal" data-target="#modal-edit-manager">
-                <i class="opciones-nav icono-btn material-icons md-18 light600">edit</i></a>
-            </td>
-            <td class="state-column">
-              <a class="state-select nav-item btn btn-dark" href="<?=base_url('manager/delete/').$m->id_manager?>">
-                <i class="opciones-nav icono-btn material-icons md-18 light600">delete_outline</i></a>
-            </td>
-            <td class="space-column"></td>
-          </tr>
-        <?php endforeach; ?>
-        </tbody>
-      </table>
-    </div>
+    <?php endforeach; ?>
+  </div>
     <div class="modal fade" id="modal-add-manager" tabindex="-1" role="dialog" aria-labelledby="addLeagueTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
@@ -120,8 +106,8 @@
 </body>
 <script type="text/javascript">
   $(".editar").click(function(){
-    $("#editId input").val($(this).parents("tr").find("td > span").eq(0).html());
-    $("#editNombre input").val($(this).parents("tr").find("td > span").eq(1).html());
-    $("#editNacionalidad select").val($(this).parents("tr").find("td > span").eq(2).attr('id'));
+    $("#editId input").val($(this).parent().siblings().eq(1).attr('id'));
+    $("#editNombre input").val($(this).parent().siblings().eq(1).html());
+    $("#editNacionalidad select").val($(this).parent().siblings().eq(2).attr('id'));
   });
 </script>

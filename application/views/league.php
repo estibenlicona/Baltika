@@ -1,63 +1,48 @@
 <body>
-  <nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-      <nav class="navbar navbar-light bg-light">
-        <div class="col-sm">
-            <button type="button" data-toggle="modal" data-target="#modal-add-league" class="nav-item btn btn-dark"><i class="opciones-nav icono-btn material-icons md-18 light600">add_box</i></button>
-        </div>
-      </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-1 p-2 list-head text-center">
+        <button type="button" data-toggle="modal" data-target="#modal-add-league" class="btn btn-outline-light btn-sm">Add</button>
+      </div>
+      <div class="col-3 p-2 list-head">League</div>
+      <div class="col-2 p-2 list-head">Created</div>
+      <div class="col-1 p-2 list-head text-center">Teams</div>
+      <div class="col-1 p-2 list-head text-center">Played</div>
+      <div class="col-1 p-2 list-head text-center">Games</div>
+      <div class="col-1 p-2 list-head text-center">Ranking</div>
+      <div class="col-1 p-2 list-head text-center">Edit</div>
+      <div class="col-1 p-2 list-head text-center">Delete</div>
+    </div><br>
+    <?php foreach ($leagues as $key => $l): ?>
+    <div class="row">
+      <div class="col-1 p-1 text-center"><?= $key+1;?></div>
+      <div class="col-3 p-1"><?= $l->league;?></div>
+      <div class="col-2 p-1"><?= $l->created;?></div>
+      <div class="col-1 p-1 text-center"><?= $l->teams;?></div>
+      <div class="col-1 p-1 text-center"><?= $l->games_p.' / '.($l->games+$l->games_p)?></div>
+      <div class="col-1 p-1 text-center">
+        <a class="state-select nav-item btn btn-success" href="<?=base_url('games/get/'.$l->l_id)?>">
+          <i class="opciones-nav icono-btn material-icons md-18 light600">visibility</i>
+        </a>
+      </div>
+      <div class="col-1 p-1 text-center">
+        <a class="state-select nav-item btn btn-warning" href="<?=base_url('ranking/get/'.$l->l_id) ?>">
+          <i class="opciones-nav icono-btn material-icons md-18 light600">equalizer</i>
+        </a>
+      </div>
+      <div class="col-1 p-1 text-center">
+        <a class="state-select nav-item btn btn-dark" href="#">
+          <i class="opciones-nav icono-btn material-icons md-18 light600">edit</i>
+        </a>
+      </div>
+      <div class="col-1 p-1 text-center">
+        <a class="state-select nav-item btn btn-dark" href="<?=base_url('league/delete/'.$l->l_id)?>">
+          <i class="opciones-nav icono-btn material-icons md-18 light600">delete</i>
+        </a>
+      </div>
     </div>
-  </nav>
-  <div class="row">
-      <table class="table list-torneos">
-        <tbody>
-          <tr class="list-head">
-            <td class="space-column"></td>
-            <td class="id-column">Id</td>
-            <td class="league-column">League</td>
-            <td class="created-column">Created</td>
-            <td class="teams-column">Teams</td>
-            <td class="playedgames-column">Played</td>
-            <td class="w-5 p-3">Games</td>
-            <td class="w-5 p-3">Ranking</td>
-            <td class="edit-column">Edit</td>
-            <td class="delete-column">Delete</td>
-            <td class="space-column"></td>
-          </tr>
-        <?php foreach ($leagues as $l): ?>
-          <tr class="table-body-list">
-            <td class="space-column"></td>
-            <td class="id-column"><span><?=$l->l_id?></span></td>
-            <td class="league-column"><span><?= $l->league;?></span></td>
-            <td class="created-column"><span><?= $l->created;?></span></td>
-            <td class="teams-column"><span><?= $l->teams;?></span></td>
-            <td class="playedgames-column"><span><?= $l->games_p.' / '.$l->games?></span></td>
-            <td class="w-5 p-3">
-              <a href="#" class="state-select nav-item btn btn-success" href="#">
-                <i class="opciones-nav icono-btn material-icons md-18 light600">remove_red_eye</i>
-              </a>
-            </td>
-            <td class="w-5 p-3">
-              <a href="#" class="state-select nav-item btn btn-warning" href="#">
-                <i class="opciones-nav icono-btn material-icons md-18 light600">assessment</i>
-              </a>
-            </td>
-            <td class="edit-column">
-              <a href="#" class="state-select nav-item btn btn-dark" href="#">
-                <i class="opciones-nav icono-btn material-icons md-18 light600">edit</i>
-              </a>
-            </td>
-            <td class="delete-column">
-              <a href="#" class="state-select nav-item btn btn-dark" href="#">
-                <i class="opciones-nav icono-btn material-icons md-18 light600">delete</i>
-              </a>
-            </td>
-            <td class="space-column"></td>
-          </tr>
-        <?php endforeach; ?>
-        </tbody>
-      </table>
-    </div>
+    <?php endforeach; ?>
+  </div>
     <div class="modal fade" id="modal-add-league" tabindex="-1" role="dialog" aria-labelledby="addLeagueTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
@@ -94,9 +79,11 @@
                   </div>
                   <div class="form-group">
                     <label>Teams</label>
-                    <select id="tokens" class="selectpicker form-control" data-live-search="true" name="teams[]" multiple required>
+                    <select id="tokens" class="selectpicker show-tick form-control" title="Choose Teams" data-actions-box="true" data-live-search="true" name="teams[]" multiple required multiple data-selected-text-format="count > 3">
                       <?php foreach ($teams as $t): ?>
-                        <option data-tokens="first" value="<?=$t->t_id?>"><span><?=$t->team.' - '.$t->manager?></span></option>
+                        <?php if (!is_null($t->manager)): ?>
+                          <option data-tokens="first" value="<?=$t->id?>" data-subtext="<?=$t->manager?>"><span><?=$t->nombre?></span></option>
+                        <?php endif; ?>
                       <?php endforeach; ?>
                     </select>
                   </div>

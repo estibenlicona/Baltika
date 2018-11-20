@@ -4,6 +4,7 @@ class Seanson extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+		$this->load->library('session');
 		$this->load->helper('form','url');
 		$this->load->library('form_validation');
 		$this->load->library('upload');
@@ -11,10 +12,13 @@ class Seanson extends CI_Controller {
 	}
   public function index(){
     $datosHeader['title'] = 'Seansons';
-    $this->load->view("header",$datosHeader);
-    $this->load->view('menu');
     $data  = array('seansons' => $this->Seanson_model->getSeansons());
+		$datos_session = ['usuario' => $this->session->userdata('usuario')];
+		$this->load->view("header",$datosHeader);
+		$this->load->view('nav',$datos_session);
+		$this->load->view('menu');
     $this->load->view('seanson',$data);
+		$this->load->view('footer');
   }
 	public function add()
 	{

@@ -4,6 +4,7 @@ class Tournament extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+		$this->load->library('session');
 		$this->load->helper('form','url');
 		$this->load->library('form_validation');
 		$this->load->library('upload');
@@ -12,10 +13,13 @@ class Tournament extends CI_Controller {
 	// Vista inicial para configurar Liga
 	public function index(){
 		$data  = array('leagues' => $this->Tournament_model->getTournament());
+		$datos_session = ['usuario' => $this->session->userdata('usuario')];
 		$datosHeader['title'] = 'Leagues';
 		$this->load->view("header",$datosHeader);
+		$this->load->view('nav',$datos_session);
 		$this->load->view('menu');
 		$this->load->view('tournament',$data);
+		$this->load->view('footer');
 	}
 	// Cargar Imagen
 	public function uploadImagen($name_imagen){

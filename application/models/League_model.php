@@ -27,4 +27,8 @@ class League_model extends CI_Model {
     return $datos->result();
   }
 
+  public function deleteLeague($id){
+    $this->db->query("UPDATE league SET estado = 0 WHERE id = $id");
+  }
+
 }

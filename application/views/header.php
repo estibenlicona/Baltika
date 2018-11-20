@@ -13,11 +13,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<script src="<?=base_url('lib\bootstrap\js\bootstrap.min.js')?>" type="text/javascript"></script>
 		<link rel="stylesheet" type="text/css" href="<?=base_url('lib\fonts\style.css')?>">
 		<link rel="stylesheet" type="text/css" href="<?=base_url('lib\css\main.css')?>">
+		<link rel="stylesheet" type="text/css" href="<?=base_url('lib\css\frmStyle.css')?>">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/fileinput.min.js"></script>
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+		<link rel="stylesheet" href="<?=base_url('lib\bootstrap-select\dist\css\bootstrap-select.css')?>">
+		<script src="<?=base_url('lib\bootstrap-select\dist\js\bootstrap-select.js')?>"></script>
 		<title><?=$title?></title>
 	</head>

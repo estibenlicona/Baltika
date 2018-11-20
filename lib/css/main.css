@@ -2,6 +2,7 @@
 
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }
+.material-icons.md-28 { font-size: 28px; }
 .material-icons.md-36 { font-size: 36px; }
 .material-icons.md-48 { font-size: 48px; }
 
@@ -14,6 +15,24 @@
 .material-icons.dark600 { color: #343a40; }
 .material-icons.light600 { color: #fff; }
 .material-icons.on600 { color: #c6dcff !important; }
+
+.input-group-text{
+  background: #fff;
+
+}
+.input-group input{
+  border-left: 0px !important;
+  border-radius: 0px 5px 5px 0px !important;
+}
+.custom-file-input {
+  background: red !important;
+  height: 100px;
+}
+.input-group select{
+  border-left: 0px;
+  border-radius: 0px 5px 5px 0px !important;
+
+}
 
 body {
   margin: 0px;
@@ -239,9 +258,31 @@ transition: all 1s ease;
   .date-column{
     width: 40%;
   }
+  .hideMenu{
+  transform: translateX(-200px) !important;
+  -webkit-transition: all 0s ease;
+  -moz-transition: all 0s ease;
+  -o-transition: all 0s ease;
+  -ms-transition: all 0s ease;
+  transition: all 0s ease;
+  }
+  .showMenu{
+  transform: translateX(0px) !important;
+  -webkit-transition: all 0s ease;
+  -moz-transition: all 0s ease;
+  -o-transition: all 0s ease;
+  -ms-transition: all 0s ease;
+  transition: all 0s ease;
+  }
 }
 @media (min-width: 800px) {
   .nav-side-menu .menu-list .menu-content {
     display: block;
   }
+}
+.alert-error{
+  color: red;
+}
+.primeros{
+  background: #ededed;
 }
