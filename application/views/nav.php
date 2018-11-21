@@ -2,7 +2,6 @@
   <div class="navbar-brand">
   </div>
   <div>
-    <span> <?=$this->session->userdata('usuario')->username?> </span>
-    <img src="<?=base_url('lib/logos/'.$this->session->userdata('usuario')->foto)?>" width="30" height="30">
+    <a href="<?=base_url('login/session_destroy')?>" onclick="return confirm('¿Seguro que desea Salir?');" class="btn btn-danger btn-sm"><i class="icono-btn material-icons md-18">settings_power</i></a>
   </div>
 </nav>

@@ -13,7 +13,7 @@
                 <i class="icono-btn material-icons md-24">account_box</i>
               </span>
             </div>
-            <input name="nombre" type="text" class="form-control rounded"  value="" placeholder="Username" aria-describedby="inputGroupPrepend" required>
+            <input name="nombre" onkeyup="mayus(this);" type="text" class="form-control rounded"  value="" placeholder="Username" aria-describedby="inputGroupPrepend" required>
           </div>
         </div>
         <div class="form-group">
@@ -52,5 +52,5 @@ $('#foto').on('change',function(e){
   var fileName = $(this).val().split('\\').pop();
   $(this).next('.custom-file-label').html(fileName);
 })
-
+function mayus(e) {e.value = e.value.toUpperCase()}
 </script>

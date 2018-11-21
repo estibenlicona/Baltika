@@ -10,6 +10,9 @@ class Manager extends CI_Controller {
 		$this->load->library('upload');
 		$this->load->model("Seanson_model");
 		$this->load->model("Manager_model");
+		if (!$this->session->has_userdata('usuario')) {
+			redirect(base_url('login'), 'location');
+		}
 	}
   public function index(){
     $datosHeader['title'] = 'Managers';

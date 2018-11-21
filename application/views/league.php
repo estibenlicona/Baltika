@@ -4,19 +4,18 @@
       <div class="col-1 p-2 list-head text-center">
         <button type="button" data-toggle="modal" data-target="#modal-add-league" class="btn btn-outline-light btn-sm">Add</button>
       </div>
-      <div class="col-3 p-2 list-head">League</div>
+      <div class="col-4 p-2 list-head">League</div>
       <div class="col-2 p-2 list-head">Created</div>
       <div class="col-1 p-2 list-head text-center">Teams</div>
       <div class="col-1 p-2 list-head text-center">Played</div>
       <div class="col-1 p-2 list-head text-center">Games</div>
       <div class="col-1 p-2 list-head text-center">Ranking</div>
-      <div class="col-1 p-2 list-head text-center">Edit</div>
       <div class="col-1 p-2 list-head text-center">Delete</div>
     </div><br>
     <?php foreach ($leagues as $key => $l): ?>
     <div class="row">
       <div class="col-1 p-1 text-center"><?= $key+1;?></div>
-      <div class="col-3 p-1"><?= $l->league;?></div>
+      <div class="col-4 p-1"><?= $l->league;?></div>
       <div class="col-2 p-1"><?= $l->created;?></div>
       <div class="col-1 p-1 text-center"><?= $l->teams;?></div>
       <div class="col-1 p-1 text-center"><?= $l->games_p.' / '.($l->games+$l->games_p)?></div>
@@ -28,11 +27,6 @@
       <div class="col-1 p-1 text-center">
         <a class="state-select nav-item btn btn-warning" href="<?=base_url('ranking/get/'.$l->l_id) ?>">
           <i class="opciones-nav icono-btn material-icons md-18 light600">equalizer</i>
-        </a>
-      </div>
-      <div class="col-1 p-1 text-center">
-        <a class="state-select nav-item btn btn-dark" href="#">
-          <i class="opciones-nav icono-btn material-icons md-18 light600">edit</i>
         </a>
       </div>
       <div class="col-1 p-1 text-center">
@@ -57,7 +51,7 @@
                 <form id="formAddLeague" action="<?=base_url('league/add')?>" method="post" enctype="multipart/form-data">
                   <div class="form-group">
                     <label>Nombre</label>
-                    <input type="text"class="form-control" name="nombre" placeholder="Nombre" required>
+                    <input type="text" onkeyup="mayus(this);" class="form-control" name="nombre" placeholder="Nombre" required>
                   </div>
                   <div class="form-group" id="tournament">
                     <label for="nombre">Tournament</label>
@@ -97,3 +91,6 @@
         </div>
       </div>
 </body>
+<script type="text/javascript">
+  function mayus(e) {e.value = e.value.toUpperCase()}
+</script>

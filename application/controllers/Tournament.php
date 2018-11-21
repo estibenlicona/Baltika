@@ -9,6 +9,9 @@ class Tournament extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->library('upload');
 		$this->load->model("Tournament_model");
+		if (!$this->session->has_userdata('usuario')) {
+			redirect(base_url('login'), 'location');
+		}
 	}
 	// Vista inicial para configurar Liga
 	public function index(){

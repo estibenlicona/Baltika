@@ -11,18 +11,18 @@ class Home extends CI_Controller {
 		$this->load->model("Tournament_model");
 		$this->load->model("Team_model");
 		$this->load->model("League_model");
+		if (!$this->session->has_userdata('usuario')) {
+			redirect(base_url('login'), 'location');
+		}
 	}
 	public function index()
 	{
-		if ($this->session->has_userdata('usuario')) {
+
 			$datosHeader['title'] = 'Home';
 			$this->load->view("header",$datosHeader);
 			$this->load->view('nav');
 			$this->load->view('menu');
 			$this->load->view('home');
 			$this->load->view('footer');
-		}else {
-			redirect(base_url('login'), 'location');
-		}
 	}
 }

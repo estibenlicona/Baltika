@@ -35,11 +35,6 @@
           </div>
         </div>
         <div class="form-group">
-          <div class="text-center p-t-12">
-            <a class="txt2" href="<?=base_url('users/create') ?>">¿Create Account?</a>
-					</div>
-        </div>
-        <div class="form-group">
           <div class="alert-error text-center"><?=$this->session->flashdata('mensaje')?></div>
         </div>
       </form>

@@ -6,6 +6,18 @@
             <h1><?=$title?></h1>
         </div>
         <div class="form-group">
+          <label>Nacionalidad</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="playerSelectSeacrh">
+                <i class="icono-btn material-icons md-24">flag</i>
+              </label>
+            </div>
+            <select id="playerSelectSeacrh" showIcon="true" title="Nacionalidad" class="selectpicker show-tick form-control border" data-live-search="true" name="pais" data-width="auto" data-size="10" required></select>
+          </div>
+          <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group">
           <label>Nombre</label>
           <div class="input-group">
             <div class="input-group-prepend">
@@ -13,7 +25,7 @@
                 <i class="icono-btn material-icons md-24">account_box</i>
               </span>
             </div>
-            <input name="nombre" type="text" class="form-control rounded"  value="" placeholder="Nombre" aria-describedby="inputGroupPrepend" required>
+            <input name="nombre" onkeyup="mayus(this);" type="text" class="form-control rounded"  value="" placeholder="Nombre" aria-describedby="inputGroupPrepend" required>
           </div>
         </div>
         <div class="form-group">
@@ -27,20 +39,10 @@
                 <i class="icono-btn material-icons md-24">account_box</i>
               </span>
             </div>
-            <input name="edad" type="text" class="form-control rounded"  value="" placeholder="Edad" aria-describedby="inputGroupPrepend" required>
+            <input name="edad" min="13" max="50" onkeyup="mayus(this);" type="number" class="form-control rounded"  value="" placeholder="Edad" aria-describedby="inputGroupPrepend" required>
           </div>
         </div>
-        <div class="form-group">
-          <label>Nacionalidad</label>
-          <div class="input-group">
-            <select data-style="btn-dark" showIcon="true" title="Nacionalidad" class="selectpicker show-tick form-control" data-live-search="true" name="pais" required data-width="auto">
-              <?php foreach ($paises as $p): ?>
-                <option data-tokens="first" data-content="<img src='<?=$p->foto?>' width='30px' height='20px'>&nbsp;&nbsp;<?=$p->nombre?>" value="<?=$p->id?>"></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
-          <div class="invalid-feedback"></div>
-        </div>
+
         <div class="form-group">
           <label>Posición</label>
           <div class="input-group">
@@ -90,4 +92,20 @@ $('#foto').on('change',function(e){
   var fileName = $(this).val().split('\\').pop();
   $(this).next('.custom-file-label').html(fileName);
 })
+var base_url = "<?=base_url()?>";
+var service = 'paises/get';
+$.ajax({
+   url: base_url+service,
+   type:"POST",
+   contentType:false,
+   cache:false,
+   processData:false
+}).done(function(data) {
+  $.each(data, function (i, item) {
+    var opciones = "<option value='"+item.id+"' data-tokens='first'  data-content=\" <img src='"+((item.foto.search('fifa')>0) ? item.foto : base_url+"lib/logos/"+item.foto)+"' width='40px' height='25px'>&nbsp;&nbsp;"+item.nombre+"\"></option>";
+    $('#playerSelectSeacrh').append(opciones);
+  });
+  $('#playerSelectSeacrh').selectpicker('refresh');
+});
+function mayus(e) {e.value = e.value.toUpperCase()}
 </script>

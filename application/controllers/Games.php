@@ -14,6 +14,9 @@ class Games extends CI_Controller {
     $this->load->model("Team_model");
     $this->load->model("League_model");
     $this->load->model("Player_model");
+		if (!$this->session->has_userdata('usuario')) {
+			redirect(base_url('login'), 'location');
+		}
 	}
 
 	public function details_view($game)

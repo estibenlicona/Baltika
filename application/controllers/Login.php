@@ -13,17 +13,15 @@ class Login extends CI_Controller {
 		$this->load->model("Users_model");
 		$this->load->model("Manager_model");
 		$this->load->model("Team_model");
+
 	}
   public function index()
   {
-		if ($this->session->has_userdata('usuario')) {
-			redirect(base_url('home'), 'location');
-		}else {
-			$datosHeader = ['title' => 'Login'];
-			$this->load->view('header',$datosHeader);
-			$this->load->view('index');
-			$this->load->view('footer');
-		}
+		$datosHeader = ['title' => 'Login'];
+		$this->load->view('header',$datosHeader);
+		$this->load->view('index');
+		$this->load->view('footer');
+
   }
   public function validate()
   {

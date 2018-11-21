@@ -6,6 +6,30 @@
             <h1>Edit User</h1>
         </div>
         <div class="form-group">
+          <label>Nacionalidad</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text">
+                <i class="icono-btn material-icons md-24">flag</i>
+              </label>
+            </div>
+            <select id="playerSelectSeacrh" showIcon="true" title="Nacionalidad" class="selectpicker show-tick form-control border" data-live-search="true" name="pais" data-width="auto" data-size="10" required></select>
+          </div>
+          <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group">
+          <label>Team</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text">
+                <i class="icono-btn material-icons md-24">verified_user</i>
+              </label>
+            </div>
+            <select id="teamSelectSeacrh" showIcon="true" title="Nacionalidad" class="selectpicker show-tick form-control border" data-live-search="true" name="team" data-width="auto" data-size="10" required></select>
+          </div>
+          <div class="invalid-feedback"></div>
+        </div>
+        <div class="form-group">
           <label>Username</label>
           <div class="input-group">
             <div class="input-group-prepend">
@@ -32,38 +56,6 @@
               Please choose a username.
             </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label>Nacionalidad</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect01">
-                <i class="icono-btn material-icons md-24">flag</i>
-              </label>
-            </div>
-            <select name="pais" class="custom-select md-24" id="inputGroupSelect01" required>
-              <?php foreach ($paises as $key => $p): ?>
-                <option <?= $p->id == $usuario[0]->id_pais ? 'selected':'';?> <?= $p->id == 0 ? 'value' : 'value="'.$p->id.'"';?>><?=$p->nombre?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
-          <div class="invalid-feedback"></div>
-        </div>
-        <div class="form-group">
-          <label>Team</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect02">
-                <i class="icono-btn material-icons md-24">flag</i>
-              </label>
-            </div>
-            <select name="team" class="custom-select md-24" id="inputGroupSelect02">
-              <?php foreach ($teams as $t): ?>
-                <option <?= $t->id == $usuario[0]->id_team ? 'selected':'';?> <?= $t->id == 0 ? 'value' : 'value="'.$t->id.'"';?> ><?=$t->nombre?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
-          <div class="invalid-feedback"></div>
         </div>
         <div class="form-group">
           <label for="">Foto</label>
@@ -110,5 +102,37 @@ $('#foto').on('change',function(e){
   var fileName = $(this).val().split('\\').pop();
   $(this).next('.custom-file-label').html(fileName);
 })
-
+var base_url = "<?=base_url()?>";
+//cargar combo paises
+var service = 'paises/get';
+$.ajax({
+   url: base_url+service,
+   type:"POST",
+   contentType:false,
+   cache:false,
+   processData:false
+}).done(function(data) {
+  $.each(data, function (i, item) {
+    var opciones = "<option value='"+item.id+"' data-tokens='first'  data-content=\" <img src='"+((item.foto.search('fifa')>0) ? item.foto : base_url+"lib/logos/"+item.foto)+"' width='40px' height='25px'>&nbsp;&nbsp;"+item.nombre+"\"></option>";
+    $('#playerSelectSeacrh').append(opciones);
+  });
+  $('#playerSelectSeacrh').val(<?=$usuario[0]->id_pais?>);
+  $('#playerSelectSeacrh').selectpicker('refresh');
+});
+//Cargar combo equipos
+var service = 'team/getTeamLibres/<?=$usuario[0]->id?>';
+$.ajax({
+   url: base_url+service,
+   type:"POST",
+   contentType:false,
+   cache:false,
+   processData:false
+}).done(function(data) {
+  $.each(data, function (i, item) {
+    var opciones = "<option value='"+item.id+"' data-tokens='first'  data-content=\" <img src='"+((item.foto.search('fifa')>0) ? item.foto : base_url+"lib/logos/"+item.foto)+"' width='30px' height='30px'>&nbsp;&nbsp;"+item.nombre+"\"></option>";
+    $('#teamSelectSeacrh').append(opciones);
+  });
+  $('#teamSelectSeacrh').val(<?=$usuario[0]->id_team?>);
+  $('#teamSelectSeacrh').selectpicker('refresh');
+});
 </script>

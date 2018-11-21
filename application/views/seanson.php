@@ -41,7 +41,7 @@
           <form action="<?=base_url('seanson/add');?>" method="post">
             <div class="form-group">
               <label>Nombre</label>
-              <input type="text"class="form-control" name="nombre" placeholder="Nombre" required>
+              <input type="text" onkeyup="mayus(this);" class="form-control" name="nombre" placeholder="Nombre" required>
             </div>
             <div class="form-group">
               <button id="estadoLeague" type="submit" class="btn btn-primary dark float-right"><i class="opciones-nav icono-btn material-icons md-24 light600">save</i></button>
@@ -68,7 +68,7 @@
             </div>
             <div class="form-group">
               <label>Nombre</label>
-              <input id="nombre" type="text"class="form-control" name="nombre" placeholder="Nombre" required>
+              <input id="nombre" onkeyup="mayus(this);" type="text"class="form-control" name="nombre" placeholder="Nombre" required>
             </div>
             <div class="form-group">
               <button type="submit" class="btn btn-primary dark float-right"><i class="opciones-nav icono-btn material-icons md-24 light600">edit</i></button>
@@ -85,4 +85,5 @@
     $("#id").val($(this).parent().siblings().eq(1).attr('id'));
     $("#nombre").val($(this).parent().siblings().eq(1).html());
   });
+  function mayus(e) {e.value = e.value.toUpperCase()}
 </script>

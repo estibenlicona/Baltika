@@ -9,6 +9,9 @@ class Seanson extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->library('upload');
 		$this->load->model("Seanson_model");
+		if (!$this->session->has_userdata('usuario')) {
+			redirect(base_url('login'), 'location');
+		}
 	}
   public function index(){
     $datosHeader['title'] = 'Seansons';

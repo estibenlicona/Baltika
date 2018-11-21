@@ -4,6 +4,7 @@ class Player extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+
 		$this->load->library('session');
 		$this->load->helper('form','url');
 		$this->load->library('form_validation');
@@ -11,8 +12,12 @@ class Player extends CI_Controller {
 		$this->load->model("Seanson_model");
 		$this->load->model("Manager_model");
 		$this->load->model("Player_model");
-    $this->load->model("Tournament_model");
-    $this->load->model("Team_model");
+		$this->load->model("Tournament_model");
+		$this->load->model("Team_model");
+
+		if (!$this->session->has_userdata('usuario')) {
+			redirect(base_url('login'), 'location');
+		}
 	}
 
   public function index()
@@ -24,13 +29,14 @@ class Player extends CI_Controller {
     $this->load->view('players',$datos);
 
   }
-	public function ajaxGetPlayers()
+
+	public function searchKey($texto='')
 	{
 		header("Content-type:application/json");
-		$players = $this->Player_model->getPlayers();
+		$players = $this->Player_model->getLike($texto);
 		echo $json = json_encode($players);
-		//echo json_encode($json);
 	}
+
   public function getPlayer($id2='')
   {
     $id = $this->input->post('id');
@@ -63,15 +69,18 @@ class Player extends CI_Controller {
   {
     $datos['id'] = $id;
     $datos['team'] = $this->Team_model->get($id);
-    $datos['playersLibres'] = $this->Player_model->getPlayersLibres();
     $datos['players'] = $this->Player_model->getPlayersTeam($id);
-    $datos['tournaments'] = $this->Tournament_model->getTournament();
-    $datos['seansons'] = $this->Seanson_model->getSeansons();
     $this->load->view("header",array('title' => 'Team Playes'));
     $this->load->view('nav');
     $this->load->view('menu');
     $this->load->view('forms/team_players',$datos);
   }
+	public function get()
+	{
+		header("Content-type:application/json");
+		$datos = $this->Player_model->getPlayersLibres();
+		echo json_encode($datos);
+	}
   public function add_player_team($team)
   {
     $players = $this->input->post('players');

@@ -70,7 +70,7 @@
                 </div>
                 <div class="form-group" id="editNombre">
                   <label for="editNombre">Name</label>
-                  <input name="editNombre" class="form-control" placeholder="Nombre">
+                  <input name="editNombre" onkeyup="mayus(this);" class="form-control" placeholder="Nombre">
                   <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group" id="editSocial">
@@ -109,7 +109,7 @@
               <form id="formAddLeague" enctype="multipart/form-data">
                 <div class="form-group" id="nombre">
                   <label for="nombre">Name</label>
-                  <input name="nombre" class="form-control" placeholder="Nombre">
+                  <input name="nombre" onkeyup="mayus(this);" class="form-control" placeholder="Nombre">
                   <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group" id="social">
@@ -137,6 +137,7 @@
   </body>
 </html>
 <script type="text/javascript">
+function mayus(e) {e.value = e.value.toUpperCase()}
   (function ($) {
     $(".editar").click(function(){
       $("#editId input").val($(this).parent().siblings().eq(1).attr('id'));

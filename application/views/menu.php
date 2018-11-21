@@ -1,5 +1,7 @@
 <nav class="nav-side-menu hideMenu">
-  <div class="brand"> Dasboard</div>
+  <div class="brand text-left p-1">
+    <span class="nav-usuario"><img class="user" src="<?=base_url('lib/logos/'.$this->session->userdata('usuario')->foto)?>" width="50" height="50">&nbsp;&nbsp;@<?=$this->session->userdata('usuario')->username?></span>
+  </div>
   <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
     <div class="menu-list">
       <ul  id="menu-content" class="menu-content collapse out">

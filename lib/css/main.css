@@ -1,5 +1,3 @@
-
-
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }
 .material-icons.md-28 { font-size: 28px; }
@@ -18,7 +16,6 @@
 
 .input-group-text{
   background: #fff;
-
 }
 .input-group input{
   border-left: 0px !important;
@@ -37,6 +34,7 @@
 body {
   margin: 0px;
   padding: 0px;
+  background: #fff !important;
 }
 .nav-side-menu {
   z-index: 10;
@@ -170,48 +168,7 @@ transition: all 1s ease;
   font-size: 30px;
   color: #343a40;
 }
-/* Configuracion de tablas y columnas*/
-.table-body-list{
-  cursor: pointer;
-}
-.table-body-list-select{
-  background:#eee
-}
-.table-body-list:hover{
-  background:#eee;
-}
-.space-column{
-  width: 5%;
-}
-.id-column{
-  width: 5%;
-}
-.social-column{
-  width: 5%;
-}
-.state-column{
-  width: 5%;
-}
-.league-column{
-  width: 75%;
-}
-.date-column{
-  width: 10%;
-}
-.seanson-column{
-  width: 75%;
-}
-/* Configuracion Tabla Leagues*/
 
-.league-column{
-  width: 30%;
-}
-.teams-column,.playedgames-column,.game-column,.edit-column,.delete-column{
-  width: 5%;
-}
-.scoretables-column,.created-column{
-  width: 10%;
-}
 /*////////////////////////////////////////////////////////*/
 #logo-invalid-feedback{
   width: 100%;
@@ -251,13 +208,7 @@ transition: all 1s ease;
   .pc_view{
     display: none;
   }
-  /* Configuracion de Tablas y columnas*/
-  .seanson-column{
-    width: 45%;
-  }
-  .date-column{
-    width: 40%;
-  }
+
   .hideMenu{
   transform: translateX(-200px) !important;
   -webkit-transition: all 0s ease;
@@ -274,6 +225,9 @@ transition: all 1s ease;
   -ms-transition: all 0s ease;
   transition: all 0s ease;
   }
+  .user{
+    display: none !important;
+  }
 }
 @media (min-width: 800px) {
   .nav-side-menu .menu-list .menu-content {
@@ -285,4 +239,11 @@ transition: all 1s ease;
 }
 .primeros{
   background: #ededed;
+}
+.select-light{
+  background: #eee;
+}
+.nav-usuario{
+  margin-left: 20px;
+  padding-right: 10px;
 }

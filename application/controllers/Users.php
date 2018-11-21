@@ -11,6 +11,16 @@ class Users extends CI_Controller {
 		$this->load->model("Users_model");
 		$this->load->model("Manager_model");
 		$this->load->model("Team_model");
+		if (!$this->session->has_userdata('usuario')) {
+			redirect(base_url('login'), 'location');
+		}
+	}
+	public function index()
+	{
+			$this->load->view("header",array('title' => 'Users'));
+			$this->load->view('nav');
+			$this->load->view('menu');
+			$this->load->view('users');
 	}
 	public function update($id)
 	{
@@ -57,17 +67,6 @@ class Users extends CI_Controller {
 		$this->load->view('forms/register',$datos);
 	}
 
-	public function index()
-	{
-		if ($this->session->has_userdata('usuario')) {
-			$this->load->view("header",array('title' => 'Users'));
-			$this->load->view('nav');
-			$this->load->view('menu');
-			$this->load->view('users');
-		}else {
-			redirect(base_url('login'), 'location');
-		}
-	}
 
 	public function add()
 	{
@@ -97,15 +96,10 @@ class Users extends CI_Controller {
 		$this->upload->do_upload($name_imagen);
 		$this->upload->do_upload($name_imagen);
 
-		if ($this->upload->data('file_size') != 0) {
-			if ($this->upload->data('file_ext') != '.png' || $this->upload->data('file_ext') != '.PNG') {
-				return 'ext_invalid';
-				exit;
-			}
-		}else {
+		if ($this->upload->data('file_size') <= 0) {
 			return 'not_select';
 			exit;
-		}
+    }
 		return $this->upload->data('file_name');
 	}
 

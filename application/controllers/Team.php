@@ -12,6 +12,9 @@ class Team extends CI_Controller {
 		$this->load->model("Manager_model");
 		$this->load->model("Player_model");
 		$this->load->model("Seanson_model");
+		if (!$this->session->has_userdata('usuario')) {
+			redirect(base_url('login'), 'location');
+		}
 	}
 	public function index(){
 		$datosHeader['title'] = 'Teams';
@@ -26,7 +29,11 @@ class Team extends CI_Controller {
 		$this->load->view('footer');
 
 	}
-
+	public function getTeamLibres($id)
+	{
+		header("Content-type:application/json");
+		echo json_encode($this->Team_model->getNull($id));
+	}
 	public function create_view()
 	{
 		$this->load->view('header',array('title' => 'Create Team'));
